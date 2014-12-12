@@ -44,13 +44,12 @@
 @property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
 
 @property (strong, nonatomic) IBOutlet UIView *waitView;
-@property (strong, nonatomic) IBOutlet UIView *popupwaitView;
+@property (strong, nonatomic) UIImageView *popupProgressBar;
+@property (strong, nonatomic) UIImageView *progressBar;
+@property (strong, nonatomic) NSString *statusProgress;
 
 @property (strong, nonatomic) IBOutlet UIView *NoInternetView;
 @property (strong, nonatomic) NSString *checkinternet;
-
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *act;
-@property (strong, nonatomic) IBOutlet UILabel *loadLabel;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;

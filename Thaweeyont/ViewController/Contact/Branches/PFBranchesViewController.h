@@ -28,9 +28,6 @@
 
 @property NSUserDefaults *contactOffline;
 
-@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *act;
-@property (strong, nonatomic) IBOutlet UILabel *loadLabel;
-
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

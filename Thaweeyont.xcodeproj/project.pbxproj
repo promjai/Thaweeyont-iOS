@@ -55,6 +55,9 @@
 		812E1F441A09D99D00CF682F /* bt_redeem@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 812E1F401A09D99D00CF682F /* bt_redeem@3x.png */; };
 		812E1F451A09D99D00CF682F /* bt_used@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 812E1F411A09D99D00CF682F /* bt_used@2x.png */; };
 		812E1F461A09D99D00CF682F /* bt_used@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 812E1F421A09D99D00CF682F /* bt_used@3x.png */; };
+		8138A3E01A36DB6700570A13 /* PFMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8138A3DF1A36DB6700570A13 /* PFMessageViewController.xib */; };
+		8138A3E31A36DFA800570A13 /* ic_loading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8138A3E11A36DFA800570A13 /* ic_loading@2x.png */; };
+		8138A3E41A36DFA800570A13 /* ic_loading@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8138A3E21A36DFA800570A13 /* ic_loading@3x.png */; };
 		815563A31A257DEC007538F3 /* PFNotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8155639C1A257DEC007538F3 /* PFNotificationCell.m */; };
 		815563A41A257DEC007538F3 /* PFNotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8155639D1A257DEC007538F3 /* PFNotificationCell.xib */; };
 		815563A51A257DEC007538F3 /* PFNotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 815563A01A257DEC007538F3 /* PFNotificationViewController.m */; };
@@ -390,6 +393,9 @@
 		812E1F401A09D99D00CF682F /* bt_redeem@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_redeem@3x.png"; sourceTree = "<group>"; };
 		812E1F411A09D99D00CF682F /* bt_used@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_used@2x.png"; sourceTree = "<group>"; };
 		812E1F421A09D99D00CF682F /* bt_used@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_used@3x.png"; sourceTree = "<group>"; };
+		8138A3DF1A36DB6700570A13 /* PFMessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFMessageViewController.xib; sourceTree = "<group>"; };
+		8138A3E11A36DFA800570A13 /* ic_loading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_loading@2x.png"; sourceTree = "<group>"; };
+		8138A3E21A36DFA800570A13 /* ic_loading@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_loading@3x.png"; sourceTree = "<group>"; };
 		8155639B1A257DEC007538F3 /* PFNotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFNotificationCell.h; sourceTree = "<group>"; };
 		8155639C1A257DEC007538F3 /* PFNotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFNotificationCell.m; sourceTree = "<group>"; };
 		8155639D1A257DEC007538F3 /* PFNotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFNotificationCell.xib; sourceTree = "<group>"; };
@@ -1253,6 +1259,7 @@
 				81C4A26D1A29C579002EDF9C /* PFMessageViewController.h */,
 				81C4A26E1A29C579002EDF9C /* PFMessageViewController.m */,
 				81C4A26F1A29C579002EDF9C /* PFMessageViewController_Wide.xib */,
+				8138A3DF1A36DB6700570A13 /* PFMessageViewController.xib */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -1777,6 +1784,8 @@
 				81590BD01A09F05D00D1B8E0 /* @3x */,
 				81F3E26F1A26E7F6005C85EC /* default-image.png */,
 				81F80D1819EE173E0051CAC1 /* default.jpg */,
+				8138A3E11A36DFA800570A13 /* ic_loading@2x.png */,
+				8138A3E21A36DFA800570A13 /* ic_loading@3x.png */,
 				81000A561A008F590077F671 /* ic_notification@2x.png */,
 				81000A571A008F590077F671 /* ic_notification@3x.png */,
 				81000A581A008F590077F671 /* ic_setting@2x.png */,
@@ -1953,6 +1962,7 @@
 				81BCA26219FB53B60046DD2B /* ic_web@3x.png in Resources */,
 				81590BEC1A09F05E00D1B8E0 /* th_contact_on.png in Resources */,
 				81F90C0219FF393500FD5640 /* bt_signup@2x.png in Resources */,
+				8138A3E31A36DFA800570A13 /* ic_loading@2x.png in Resources */,
 				81E9717A19FE2B8400486272 /* logo@2x.png in Resources */,
 				81E9711119FE08F400486272 /* PFUpdateViewController_Wide.xib in Resources */,
 				81AAC49119EE160B00B369CE /* Images.xcassets in Resources */,
@@ -1960,6 +1970,7 @@
 				81ED3FDB19F9FF4C003D3497 /* chapter02@2x.png in Resources */,
 				81F51B1119FA49080069AE94 /* MWPhotoBrowser.bundle in Resources */,
 				812E1F451A09D99D00CF682F /* bt_used@2x.png in Resources */,
+				8138A3E41A36DFA800570A13 /* ic_loading@3x.png in Resources */,
 				81ED400B19FA0CC6003D3497 /* PFBranchesCell.xib in Resources */,
 				81ED3FD919F9FF4C003D3497 /* chapter01@2x.png in Resources */,
 				81CCCAAD1A17362100A9F44C /* PFDetailFoldertype1ViewController.xib in Resources */,
@@ -1983,6 +1994,7 @@
 				81F90BFB19FF393500FD5640 /* bt_create_account@3x.png in Resources */,
 				81590BE91A09F05E00D1B8E0 /* en_update_off.png in Resources */,
 				81BCA25E19FB53B60046DD2B /* ic_fax@3x.png in Resources */,
+				8138A3E01A36DB6700570A13 /* PFMessageViewController.xib in Resources */,
 				81CCCABF1A17379600A9F44C /* PFMapViewController.xib in Resources */,
 				81000AC41A00C7590077F671 /* bt_setting.png in Resources */,
 				81000AC61A00C7590077F671 /* checked.png in Resources */,
@@ -2317,8 +2329,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Platwofusion Co.,Ltd. (Q246MJM9JV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Platwofusion Co.,Ltd. (Q246MJM9JV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Phee Puthaprasert (Q8MZLL79Y4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Phee Puthaprasert (Q8MZLL79Y4)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2356,8 +2368,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Platwofusion Co.,Ltd. (Q246MJM9JV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Platwofusion Co.,Ltd. (Q246MJM9JV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Phee Puthaprasert (Q8MZLL79Y4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Phee Puthaprasert (Q8MZLL79Y4)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2378,8 +2390,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Platwofusion Co.,Ltd. (Q246MJM9JV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Platwofusion Co.,Ltd. (Q246MJM9JV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Phee Puthaprasert (Q8MZLL79Y4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Phee Puthaprasert (Q8MZLL79Y4)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Thaweeyont/FW",
@@ -2389,7 +2401,7 @@
 				INFOPLIST_FILE = "Thaweeyont/Thaweeyont-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fd9b6ecd-a354-46d3-8a86-21c8e77a602a";
+				PROVISIONING_PROFILE = "7cdb4a11-fc63-4b50-8f2b-638b094eb94b";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2399,8 +2411,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Platwofusion Co.,Ltd. (Q246MJM9JV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Platwofusion Co.,Ltd. (Q246MJM9JV)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Phee Puthaprasert (Q8MZLL79Y4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Phee Puthaprasert (Q8MZLL79Y4)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Thaweeyont/FW",
@@ -2410,7 +2422,7 @@
 				INFOPLIST_FILE = "Thaweeyont/Thaweeyont-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fd9b6ecd-a354-46d3-8a86-21c8e77a602a";
+				PROVISIONING_PROFILE = "7cdb4a11-fc63-4b50-8f2b-638b094eb94b";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

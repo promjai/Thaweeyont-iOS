@@ -38,10 +38,7 @@ NSTimer *timmer;
     // Do any additional setup after loading the view from its nib.
     
     [self.view addSubview:self.waitView];
-    
-    CALayer *popup = [self.popupwaitView layer];
-    [popup setMasksToBounds:YES];
-    [popup setCornerRadius:7.0f];
+    [self startSpin];
     
     self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
     self.ThaweeyontApi.delegate = self;
@@ -93,10 +90,117 @@ NSTimer *timmer;
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (void)startSpin
+{
+    self.statusProgress = @"startSpin";
+    
+    if (!self.popupProgressBar) {
+        
+        if(IS_WIDESCREEN) {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 274, 20, 20)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        } else {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 230, 20, 20)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        }
+        
+    }
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    CGRect frame = [self.popupProgressBar frame];
+    self.popupProgressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    self.popupProgressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
+    [CATransaction commit];
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
+    
+    CABasicAnimation *animation;
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = [NSNumber numberWithFloat:0.0];
+    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
+    animation.delegate = self;
+    [self.popupProgressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
+    
+    [CATransaction commit];
+}
+
+- (void)startPullToRefresh
+{
+    
+    self.statusProgress = @"startPullToRefresh";
+    
+    if (!self.progressBar) {
+        
+        self.progressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 81, 20, 20)];
+        self.progressBar.image = [UIImage imageNamed:@"ic_loading"];
+        [self.view addSubview:self.progressBar];
+        
+    }
+    
+    self.progressBar.hidden = NO;
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    CGRect frame = [self.progressBar frame];
+    self.progressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    self.progressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
+    [CATransaction commit];
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
+    
+    CABasicAnimation *animation;
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = [NSNumber numberWithFloat:0.0];
+    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
+    animation.delegate = self;
+    [self.progressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
+    
+    [CATransaction commit];
+}
+
+- (void)stopPullToRefresh
+{
+    [self.progressBar.layer removeAllAnimations];
+    self.progressBar.hidden = YES;
+}
+
+- (void)animationDidStart:(CAAnimation *)anim
+{
+    
+}
+
+/* Called when the animation either completes its active duration or
+ * is removed from the object it is attached to (i.e. the layer). 'flag'
+ * is true if the animation reached the end of its active duration
+ * without being removed. */
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
+{
+    if (finished)
+    {
+        
+        if ([self.statusProgress isEqualToString:@"startSpin"]) {
+            [self startSpin];
+        } else {
+            [self startPullToRefresh];
+        }
+        
+    }
+}
+
 - (void)segmentselect:(id)sender {
 
     if (self.segmented.selectedSegmentIndex == 0) {
         self.checksegmented = @"0";
+        [self stopPullToRefresh];
         
         UIView *fv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
         self.promotiontableView.tableFooterView = fv;
@@ -108,6 +212,7 @@ NSTimer *timmer;
     }
     if (self.segmented.selectedSegmentIndex == 1) {
         self.checksegmented = @"1";
+        [self stopPullToRefresh];
         
         UIView *hv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
         UIView *fv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -465,12 +570,7 @@ NSTimer *timmer;
     if ( scrollView.contentOffset.y < 0.0f ) {
         //NSLog(@"refreshData < 0.0f");
         
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        self.loadLabel.text = [NSString stringWithFormat:@" "];
-        self.act.alpha = 0;
+        [self stopPullToRefresh];
         
     }
 }
@@ -480,34 +580,17 @@ NSTimer *timmer;
     if (scrollView.contentOffset.y < -60.0f ) {
         refreshDataProduct = YES;
         
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-        self.act.alpha = 1;
+        [self startPullToRefresh];
         
         if ([self.checksegmented isEqualToString:@"0"]) {
             
             [self.ThaweeyontApi getPromotion:@"15" link:@"NO"];
-    
-            [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-            self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-            self.act.alpha = 1;
+            [self startPullToRefresh];
             
         } else {
             
             [self.ThaweeyontApi getCatalog:@"15" link:@"NO"];
-
-                [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-                [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-                self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-                self.act.alpha = 1;
+            [self startPullToRefresh];
             
         }
         
@@ -526,12 +609,7 @@ NSTimer *timmer;
             [UIView commitAnimations];
             [self performSelector:@selector(resizeTable) withObject:nil afterDelay:2];
             
-            [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-            [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-            self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-            self.act.alpha = 1;
+            [self startPullToRefresh];
             
         } else {
             
@@ -541,12 +619,7 @@ NSTimer *timmer;
             [UIView commitAnimations];
             [self performSelector:@selector(resizeTable) withObject:nil afterDelay:2];
             
-                [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-                [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-                self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-                self.act.alpha = 1;
+            [self startPullToRefresh];
             
         }
 
@@ -595,6 +668,8 @@ NSTimer *timmer;
         [UIView commitAnimations];
         
     }
+    
+    [self stopPullToRefresh];
     
 }
 

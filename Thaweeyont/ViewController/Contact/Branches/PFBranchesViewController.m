@@ -50,9 +50,6 @@ BOOL refreshDataBranch;
     
     self.arrObj = [[NSMutableArray alloc] init];
     
-    UIView *hv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-    self.tableView.tableHeaderView = hv;
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -82,7 +79,7 @@ BOOL refreshDataBranch;
     [self.contactOffline setObject:response forKey:@"branchesArray"];
     [self.contactOffline synchronize];
     
-    [self.tableView reloadData];
+    [self reloadData:YES];
 
 }
 
@@ -101,8 +98,18 @@ BOOL refreshDataBranch;
         }
     }
     
-    [self.tableView reloadData];
+    [self reloadData:YES];
     
+}
+
+- (void)reloadData:(BOOL)animated
+{
+    [self.tableView reloadData];
+    if (!noDataBranch){
+        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width,self.tableView.contentSize.height);
+    } else {
+        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width,self.tableView.contentSize.height);
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -174,28 +181,14 @@ BOOL refreshDataBranch;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if ( scrollView.contentOffset.y < 0.0f ) {
         //NSLog(@"refreshData < 0.0f");
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        self.loadLabel.text = [NSString stringWithFormat:@" "];
-        self.act.alpha = 0;
+        
     }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     //NSLog(@"%f",scrollView.contentOffset.y);
     if (scrollView.contentOffset.y < -60.0f ) {
-        refreshDataBranch = YES;
         
-        [self.ThaweeyontApi getContactBranches];
-        
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-        self.act.alpha = 1;
     }
 }
 
@@ -203,18 +196,8 @@ BOOL refreshDataBranch;
     
     if ( scrollView.contentOffset.y < -100.0f ) {
         
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:1.0];
-        self.tableView.frame = CGRectMake(0, 60, self.tableView.frame.size.width, self.tableView.frame.size.height);
-        [UIView commitAnimations];
-        [self performSelector:@selector(resizeTable) withObject:nil afterDelay:2];
-        
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-        self.act.alpha = 1;
+        refreshDataBranch = YES;
+        [self.ThaweeyontApi getContactBranches];
         
     }
 }
@@ -229,13 +212,6 @@ BOOL refreshDataBranch;
             [self.ThaweeyontApi getContactBranches];
         }
     }
-}
-
-- (void)resizeTable {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.2];
-    self.tableView.frame = CGRectMake(0, 0, 320, self.tableView.frame.size.height);
-    [UIView commitAnimations];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

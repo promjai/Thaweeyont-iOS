@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3991E500-589E-4031-9FB6-64FADC49766A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Thaweeyont</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FCEB309A604E6A1791E5269952813AAAB9C9030C</key>
+		<string>https://github.com/promjai/Thaweeyont-iOS.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Thaweeyont.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FCEB309A604E6A1791E5269952813AAAB9C9030C</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/promjai/Thaweeyont-iOS.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FCEB309A604E6A1791E5269952813AAAB9C9030C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FCEB309A604E6A1791E5269952813AAAB9C9030C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Thaweeyont-iOS</string>
+		</dict>
+	</array>
+</dict>
+</plist>

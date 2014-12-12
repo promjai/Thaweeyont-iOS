@@ -1,69 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PFProductViewController">
             <connections>
                 <outlet property="NoInternetView" destination="lqf-QC-I3q" id="gwB-yw-W4u"/>
-                <outlet property="act" destination="4On-XV-8Gx" id="Ll7-so-i6f"/>
                 <outlet property="catalogView" destination="UQI-it-nYG" id="j5A-Wa-2tA"/>
                 <outlet property="catalogtableView" destination="o0n-dR-8Xc" id="9gs-6f-f41"/>
-                <outlet property="loadLabel" destination="7iY-qy-Boi" id="Kzx-bT-Ugw"/>
                 <outlet property="mainView" destination="xd9-D4-E2Z" id="SDW-li-qjh"/>
                 <outlet property="navBar" destination="znE-1F-R8F" id="aE5-qU-7ax"/>
                 <outlet property="navController" destination="Z4v-0Q-4cS" id="4L1-Xz-Xec"/>
                 <outlet property="navItem" destination="PUx-s9-lhR" id="YaS-iy-zJv"/>
-                <outlet property="popupwaitView" destination="xsC-Uh-1Mj" id="Tff-7s-VyF"/>
                 <outlet property="promotionView" destination="TAY-Yb-XAY" id="BCp-rw-gM0"/>
                 <outlet property="promotiontableView" destination="V02-dh-6C9" id="HfP-MP-RTn"/>
                 <outlet property="segmented" destination="wJj-vl-Az4" id="Chb-vY-IWX"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="waitView" destination="QSq-eU-1Pz" id="HN7-dT-PNn"/>
+                <outlet property="view" destination="dv5-8o-8wf" id="JKf-oG-eOq"/>
+                <outlet property="waitView" destination="ffc-fn-ipc" id="LOP-o1-CXi"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="QSq-eU-1Pz">
+        <view contentMode="scaleToFill" id="ffc-fn-ipc">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xsC-Uh-1Mj">
-                    <rect key="frame" x="115" y="195" width="90" height="90"/>
-                    <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="a6T-zK-e3I">
-                            <rect key="frame" x="35" y="23" width="20" height="20"/>
-                        </activityIndicatorView>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4p-g8-OhH">
-                            <rect key="frame" x="6" y="57" width="76" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                </view>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="dv5-8o-8wf">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iY-qy-Boi">
-                    <rect key="frame" x="60" y="81" width="225" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <activityIndicatorView opaque="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4On-XV-8Gx">
-                    <rect key="frame" x="35" y="82" width="20" height="20"/>
-                    <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                </activityIndicatorView>
-            </subviews>
             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="169" y="335"/>
         </view>
         <navigationController definesPresentationContext="YES" id="Z4v-0Q-4cS">
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

@@ -110,7 +110,7 @@ BOOL newMedia;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     
-    if ([[def objectForKey:@"badge"] intValue] == 0) {
+    if ([[def objectForKey:@"badge"] intValue] == 0 && [[self.ThaweeyontApi getAccessToken] length] != 0) {
         
         self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
         self.ThaweeyontApi.delegate = self;

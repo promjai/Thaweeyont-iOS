@@ -33,10 +33,6 @@
                                          [UIFont fontWithName:@"Helvetica" size:17.0],NSFontAttributeName,nil] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = rightButton;
     
-    CALayer *popup = [self.popupwaitView layer];
-    [popup setMasksToBounds:YES];
-    [popup setCornerRadius:7.0f];
-    
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_url]];
     self.webView.delegate = self;
     self.webView.scalesPageToFit = YES;
@@ -52,6 +48,64 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (void)startSpin
+{
+    
+    if (!self.popupProgressBar) {
+        
+        if(IS_WIDESCREEN) {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 274, 20, 20)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        } else {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 230, 20, 20)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        }
+        
+    }
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    CGRect frame = [self.popupProgressBar frame];
+    self.popupProgressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    self.popupProgressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
+    [CATransaction commit];
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
+    
+    CABasicAnimation *animation;
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = [NSNumber numberWithFloat:0.0];
+    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
+    animation.delegate = self;
+    [self.popupProgressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
+    
+    [CATransaction commit];
+}
+
+- (void)animationDidStart:(CAAnimation *)anim
+{
+    
+}
+
+/* Called when the animation either completes its active duration or
+ * is removed from the object it is attached to (i.e. the layer). 'flag'
+ * is true if the animation reached the end of its active duration
+ * without being removed. */
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
+{
+    if (finished)
+    {
+        
+        [self startSpin];
+        
+    }
+}
+
 - (void)reload
 {
     [self.webView reload];
@@ -60,6 +114,7 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     [self.view addSubview:self.waitView];
+    [self startSpin];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
