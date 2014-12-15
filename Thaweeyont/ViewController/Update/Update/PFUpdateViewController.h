@@ -10,7 +10,7 @@
 #import "DLImageLoader.h"
 #import "BBBadgeBarButtonItem.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFUpdateCell.h"
 #import "PFLoginViewController.h"
@@ -31,7 +31,7 @@
 @interface PFUpdateViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 @property (strong, nonatomic) NSMutableArray *arrObj;
 @property (strong, nonatomic) NSDictionary *obj;
 
@@ -45,8 +45,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *waitView;
 @property (strong, nonatomic) UIImageView *popupProgressBar;
-@property (strong, nonatomic) UIImageView *progressBar;
-@property (strong, nonatomic) NSString *statusProgress;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) IBOutlet UIView *NoInternetView;
 @property (strong, nonatomic) NSString *checkinternet;

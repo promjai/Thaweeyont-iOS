@@ -35,10 +35,10 @@ BOOL refreshDataTel;
     
     self.navigationItem.title = @"หมายเลขภายใน";
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    [self.ThaweeyontApi getBranchTelephone:[self.obj objectForKey:@"id"]];
+    [self.Api getBranchTelephone:[self.obj objectForKey:@"id"]];
     
     loadTel = NO;
     noDataTel = NO;
@@ -69,11 +69,11 @@ BOOL refreshDataTel;
     if (!self.popupProgressBar) {
         
         if(IS_WIDESCREEN) {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 274, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 269, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
             [self.waitView addSubview:self.popupProgressBar];
         } else {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 230, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 225, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
             [self.waitView addSubview:self.popupProgressBar];
         }
@@ -121,7 +121,7 @@ BOOL refreshDataTel;
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender getBranchTelephoneResponse:(NSDictionary *)response{
+- (void)PFApi:(id)sender getBranchTelephoneResponse:(NSDictionary *)response{
     //NSLog(@"%@",response);
     
     [self.waitView removeFromSuperview];
@@ -150,7 +150,7 @@ BOOL refreshDataTel;
     [self.tableView reloadData];
 }
 
-- (void)PFThaweeyontApi:(id)sender getBranchTelephoneErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getBranchTelephoneErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [self.waitView removeFromSuperview];

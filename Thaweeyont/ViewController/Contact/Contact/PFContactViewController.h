@@ -10,7 +10,7 @@
 #import <MessageUI/MessageUI.h>
 #import "DLImageLoader.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFLoginViewController.h"
 #import "PFCommentViewController.h"
@@ -29,7 +29,7 @@
 @interface PFContactViewController : UIViewController <UITableViewDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate>
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 @property (strong, nonatomic) NSMutableArray *arrObj;
 @property (strong, nonatomic) NSDictionary *obj;
 
@@ -45,8 +45,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *waitView;
 @property (strong, nonatomic) UIImageView *popupProgressBar;
-@property (strong, nonatomic) UIImageView *progressBar;
-@property (strong, nonatomic) NSString *statusProgress;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) IBOutlet UIView *NoInternetView;
 @property (strong, nonatomic) NSString *checkinternet;

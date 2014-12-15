@@ -11,7 +11,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "SDImageCache.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFEditDetailViewController.h"
 
@@ -24,14 +24,14 @@
 @interface PFEditViewController : UIViewController <UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 
 @property NSUserDefaults *meOffline;
 
 @property (strong, nonatomic) NSDictionary *objEdit;
 
 @property (strong, nonatomic) IBOutlet UIView *waitView;
-@property (strong, nonatomic) IBOutlet UIView *popupwaitView;
+@property (strong, nonatomic) UIImageView *popupProgressBar;
 
 @property (strong, nonatomic) IBOutlet UINavigationController *navController;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;

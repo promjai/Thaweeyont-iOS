@@ -39,12 +39,12 @@ NSTimer *timmer;
     [self.view addSubview:self.waitView];
     [self startSpin];
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    [self.ThaweeyontApi getContactBranches];
+    [self.Api getContactBranches];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navItem.title = @"Contact";
         self.branchLabel.text = @"Our Branches";
         self.commentLabel.text = @"Sent us message or comment.";
@@ -56,10 +56,8 @@ NSTimer *timmer;
     
     // Navbar setup
     [[self.navController navigationBar] setBarTintColor:[UIColor colorWithRed:237.0f/255.0f green:28.0f/255.0f blue:36.0f/255.0f alpha:1.0f]];
-    
     [[self.navController navigationBar] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                                  [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], NSForegroundColorAttributeName, nil]];
-    
     [[self.navController navigationBar] setTranslucent:YES];
     [self.view addSubview:self.navController.view];
     
@@ -78,6 +76,10 @@ NSTimer *timmer;
 
     [self.branchBt.layer setMasksToBounds:YES];
     [self.branchBt.layer setCornerRadius:5.0f];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
 
 }
 
@@ -92,16 +94,14 @@ NSTimer *timmer;
 
 - (void)startSpin
 {
-    self.statusProgress = @"startSpin";
-    
     if (!self.popupProgressBar) {
         
         if(IS_WIDESCREEN) {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 274, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 269, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
             [self.waitView addSubview:self.popupProgressBar];
         } else {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 230, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 225, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
             [self.waitView addSubview:self.popupProgressBar];
         }
@@ -130,76 +130,26 @@ NSTimer *timmer;
     [CATransaction commit];
 }
 
-- (void)startPullToRefresh
-{
-    
-    self.statusProgress = @"startPullToRefresh";
-    
-    if (!self.progressBar) {
-        
-        self.progressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 81, 20, 20)];
-        self.progressBar.image = [UIImage imageNamed:@"ic_loading"];
-        [self.view addSubview:self.progressBar];
-        
-    }
-    
-    self.progressBar.hidden = NO;
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-    CGRect frame = [self.progressBar frame];
-    self.progressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
-    self.progressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
-    [CATransaction commit];
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
-    
-    CABasicAnimation *animation;
-    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    animation.fromValue = [NSNumber numberWithFloat:0.0];
-    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
-    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
-    animation.delegate = self;
-    [self.progressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
-    
-    [CATransaction commit];
-}
-
-- (void)stopPullToRefresh
-{
-    [self.progressBar.layer removeAllAnimations];
-    self.progressBar.hidden = YES;
-}
-
 - (void)animationDidStart:(CAAnimation *)anim
 {
     
 }
 
-/* Called when the animation either completes its active duration or
- * is removed from the object it is attached to (i.e. the layer). 'flag'
- * is true if the animation reached the end of its active duration
- * without being removed. */
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
 {
     if (finished)
     {
         
-        if ([self.statusProgress isEqualToString:@"startSpin"]) {
-            [self startSpin];
-        } else {
-            [self startPullToRefresh];
-        }
+        [self startSpin];
         
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender getContactResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getContactResponse:(NSDictionary *)response {
     //NSLog(@"contact %@",response);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     [self.NoInternetView removeFromSuperview];
     self.checkinternet = @"connect";
@@ -212,10 +162,11 @@ NSTimer *timmer;
     self.facebookLabel.text = [response objectForKey:@"facebook"];
 }
 
-- (void)PFThaweeyontApi:(id)sender getContactErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getContactErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     self.checkinternet = @"error";
     self.NoInternetView.frame = CGRectMake(0, 64, self.NoInternetView.frame.size.width, self.NoInternetView.frame.size.height);
@@ -229,10 +180,10 @@ NSTimer *timmer;
     self.facebookLabel.text = [[self.contactOffline objectForKey:@"contactArray"] objectForKey:@"facebook"];
 }
 
-- (void)PFThaweeyontApi:(id)sender getContactBranchesResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getContactBranchesResponse:(NSDictionary *)response {
     //NSLog(@"contactBranch %@",response);
     
-    [self.ThaweeyontApi getContact];
+    [self.Api getContact];
     
     [self.contactOffline setObject:response forKey:@"contactMap"];
     [self.contactOffline synchronize];
@@ -291,10 +242,10 @@ NSTimer *timmer;
     
 }
 
-- (void)PFThaweeyontApi:(id)sender getContactBranchesErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getContactBranchesErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
-    [self.ThaweeyontApi getContact];
+    [self.Api getContact];
     
     NSString *urlmap1 = @"http://maps.googleapis.com/maps/api/staticmap?center=";
     
@@ -347,6 +298,12 @@ NSTimer *timmer;
 
 }
 
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    
+    [self.Api getContactBranches];
+    
+}
+
 - (void)countDown {
     contactInt -= 1;
     if (contactInt == 0) {
@@ -361,70 +318,6 @@ NSTimer *timmer;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 0;
-}
-
-#pragma mark -
-#pragma mark UIScrollViewDelegate Methods
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    //[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if ( scrollView.contentOffset.y < 0.0f ) {
-        //NSLog(@"refreshData < 0.0f");
-        
-        [self stopPullToRefresh];
-        
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y < -60.0f ) {
-
-        
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if ( scrollView.contentOffset.y < -100.0f ) {
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:1.0];
-        self.tableView.frame = CGRectMake(0, 60, self.tableView.frame.size.width, self.tableView.frame.size.height);
-        [UIView commitAnimations];
-        [self performSelector:@selector(resizeTable) withObject:nil afterDelay:2];
-        
-        refreshDataContact = YES;
-        [self startPullToRefresh];
-        [self.ThaweeyontApi getContact];
-        [self.ThaweeyontApi getContactBranches];
-        
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    float offset = (scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.frame.size.height));
-    if (offset >= 0 && offset <= 5) {
-        if (!noDataContact) {
-            refreshDataContact = NO;
-            
-            [self.ThaweeyontApi getContactBranches];
-            
-        }
-    }
-}
-
-- (void)resizeTable {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.2];
-    self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height);
-    [UIView commitAnimations];
-    [self stopPullToRefresh];
 }
 
 //button to new page
@@ -520,7 +413,7 @@ NSTimer *timmer;
     
     [self.NoInternetView removeFromSuperview];
     
-    if ([self.ThaweeyontApi checkLogin] == false){
+    if ([self.Api checkLogin] == false){
         
         self.loginView = [PFLoginViewController alloc];
         self.loginView.delegate = self;
@@ -591,7 +484,7 @@ NSTimer *timmer;
         MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
         mc.mailComposeDelegate = self;
         
-        [mc.navigationBar setTintColor:[UIColor whiteColor]];
+        [mc.navigationBar setTintColor:[UIColor redColor]];
         [mc setSubject:emailTitle];
         [mc setMessageBody:messageBody isHTML:NO];
         [mc setToRecipients:toRecipents];
@@ -640,7 +533,7 @@ NSTimer *timmer;
 
 - (void)PFMapAllViewControllerBack {
     [self.delegate ShowTabbar];
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navItem.title = @"Contact";
     } else {
         self.navItem.title = @"ติดต่อ";
@@ -649,7 +542,7 @@ NSTimer *timmer;
 
 - (void)PFCommentViewControllerBack {
     [self.delegate ShowTabbar];
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navItem.title = @"Contact";
     } else {
         self.navItem.title = @"ติดต่อ";
@@ -658,7 +551,7 @@ NSTimer *timmer;
 
 - (void)PFBranchesViewControllerBack {
     [self.delegate ShowTabbar];
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navItem.title = @"Contact";
     } else {
         self.navItem.title = @"ติดต่อ";
@@ -667,7 +560,7 @@ NSTimer *timmer;
 
 - (void) PFWebViewControllerBack {
     [self.delegate ShowTabbar];
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navItem.title = @"Contact";
     } else {
         self.navItem.title = @"ติดต่อ";

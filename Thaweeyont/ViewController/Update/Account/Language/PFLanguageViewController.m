@@ -28,10 +28,10 @@
 {
     [super viewDidLoad];
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         
         self.navigationItem.title = @"App Language";
         
@@ -88,9 +88,9 @@
 }
 
 - (IBAction)saveTapped:(id)sender{
-    [self.ThaweeyontApi saveLanguage:self.statusLanguage];
+    [self.Api saveLanguage:self.statusLanguage];
     [self.delegate BackSetting];
-    [self.ThaweeyontApi saveReset:@"YES"];
+    [self.Api saveReset:@"YES"];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -25,8 +25,8 @@ BOOL newMedia;
         [[UIApplication sharedApplication] registerForRemoteNotifications];
     }
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -56,7 +56,7 @@ BOOL newMedia;
     self.coupon.delegate = self;
     self.contact.delegate = self;
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             
         PFTabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
         [item0 setHighlightedImage:[UIImage imageNamed:@"en_update_on"]];
@@ -110,12 +110,12 @@ BOOL newMedia;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     
-    if ([[def objectForKey:@"badge"] intValue] == 0 && [[self.ThaweeyontApi getAccessToken] length] != 0) {
+    if ([[def objectForKey:@"badge"] intValue] == 0 && [[self.Api getAccessToken] length] != 0) {
         
-        self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-        self.ThaweeyontApi.delegate = self;
+        self.Api = [[PFApi alloc] init];
+        self.Api.delegate = self;
         
-        [self.ThaweeyontApi clearBadge];
+        [self.Api clearBadge];
         
     }
     
@@ -208,7 +208,7 @@ BOOL newMedia;
 }
 
 - (void)resetApp {
-    [self.ThaweeyontApi saveReset:@"NO"];
+    [self.Api saveReset:@"NO"];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -238,7 +238,7 @@ BOOL newMedia;
     self.coupon.delegate = self;
     self.contact.delegate = self;
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         
         PFTabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
         [item0 setHighlightedImage:[UIImage imageNamed:@"en_update_on"]];

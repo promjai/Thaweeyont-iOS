@@ -33,16 +33,12 @@ NSString *removeBreckets;
     [super viewDidLoad];
     
     [self.view addSubview:self.waitView];
+    [self startSpin];
     
-    CALayer *popup = [self.popupwaitView layer];
-    [popup setMasksToBounds:YES];
-    [popup setCornerRadius:7.0f];
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
-    
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navigationItem.title = @"Setting";
         self.notificationLabel.text = @"Notification setting";
         self.newupdateLabel.text = @"News Update";
@@ -76,7 +72,7 @@ NSString *removeBreckets;
     self.obj = [[NSDictionary alloc] init];
     self.rowCount = [[NSString alloc] init];
     
-    [self.ThaweeyontApi me];
+    [self.Api me];
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,7 +84,60 @@ NSString *removeBreckets;
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (void)PFThaweeyontApi:(id)sender meResponse:(NSDictionary *)response {
+- (void)startSpin
+{
+    if (!self.popupProgressBar) {
+        
+        if(IS_WIDESCREEN) {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 269, 30, 30)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        } else {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 225, 30, 30)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        }
+        
+    }
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    CGRect frame = [self.popupProgressBar frame];
+    self.popupProgressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    self.popupProgressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
+    [CATransaction commit];
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
+    
+    CABasicAnimation *animation;
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = [NSNumber numberWithFloat:0.0];
+    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
+    animation.delegate = self;
+    [self.popupProgressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
+    
+    [CATransaction commit];
+}
+
+- (void)animationDidStart:(CAAnimation *)anim
+{
+    
+}
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
+{
+    if (finished)
+    {
+        
+        [self startSpin];
+        
+    }
+}
+
+- (void)PFApi:(id)sender meResponse:(NSDictionary *)response {
     self.obj = response;
     //NSLog(@"Me %@",response);
     
@@ -108,11 +157,11 @@ NSString *removeBreckets;
                               self.thumUser.image = [UIImage imageWithData:imgData];
                           }];
     
-    [self.ThaweeyontApi getUserSetting];
+    [self.Api getUserSetting];
     
 }
 
-- (void)PFThaweeyontApi:(id)sender meErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender meErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [self.waitView removeFromSuperview];
@@ -128,10 +177,10 @@ NSString *removeBreckets;
                               self.thumUser.image = [UIImage imageWithData:imgData];
                           }];
     
-    [self.ThaweeyontApi getUserSetting];
+    [self.Api getUserSetting];
 }
 
-- (void)PFThaweeyontApi:(id)sender getUserSettingResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getUserSettingResponse:(NSDictionary *)response {
     //NSLog(@"getUserSetting %@",response);
     
     [self.settingOffline setObject:response forKey:@"settingOffline"];
@@ -153,7 +202,7 @@ NSString *removeBreckets;
     
 }
 
-- (void)PFThaweeyontApi:(id)sender getUserSettingErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getUserSettingErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     if ([[[self.settingOffline objectForKey:@"settingOffline"] objectForKey:@"notify_update"] intValue] == 1) {
@@ -172,9 +221,9 @@ NSString *removeBreckets;
 - (IBAction)switchNewsonoff:(id)sender{
     
     if(self.switchNews.on) {
-        [self.ThaweeyontApi settingNews:@"1"];
+        [self.Api settingNews:@"1"];
     } else {
-        [self.ThaweeyontApi settingNews:@"0"];
+        [self.Api settingNews:@"0"];
     }
     
 }
@@ -182,9 +231,9 @@ NSString *removeBreckets;
 - (IBAction)switchMessageonoff:(id)sender{
     
     if(self.switchMessage.on) {
-        [self.ThaweeyontApi settingMessage:@"1"];
+        [self.Api settingMessage:@"1"];
     } else {
-        [self.ThaweeyontApi settingMessage:@"0"];
+        [self.Api settingMessage:@"0"];
     }
     
 }
@@ -238,7 +287,7 @@ NSString *removeBreckets;
 
 - (IBAction)logoutTapped:(id)sender {
     [FBSession.activeSession closeAndClearTokenInformation];
-    [self.ThaweeyontApi logOut];
+    [self.Api logOut];
     [self.navigationController popViewControllerAnimated:YES];
     
 }

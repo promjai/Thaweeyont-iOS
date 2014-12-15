@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFTabBarViewController.h"
 
@@ -25,7 +25,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MWPhotoBrowserDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 
 @property (strong, nonatomic) PFTabBarViewController *tabBarViewController;
 

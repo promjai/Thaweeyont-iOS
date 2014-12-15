@@ -10,7 +10,7 @@
 #import "AFNetworking.h"
 #import "PFNotificationCell.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFUpdateDetailViewController.h"
 #import "PFPromotionDetailViewController.h"
@@ -28,14 +28,15 @@
 
 @property AFHTTPRequestOperationManager *manager;
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 
 @property NSUserDefaults *notifyOffline;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) IBOutlet UIView *waitView;
-@property (strong, nonatomic) IBOutlet UIView *popupwaitView;
+@property (strong, nonatomic) UIImageView *popupProgressBar;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) NSMutableArray *arrObj;
 

@@ -18,8 +18,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        // Custom initialization
     }
     return self;
 }
@@ -28,10 +28,10 @@
 {
     [super viewDidLoad];
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Sent" style:UIBarButtonItemStyleDone target:self action:@selector(sentcomment)];
         [rightButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
                                              [UIFont fontWithName:@"Helvetica" size:17.0],NSFontAttributeName,nil] forState:UIControlStateNormal];
@@ -58,10 +58,10 @@
 
 - (void)sentcomment {
     if (self.comment.text.length > 10) {
-        [self.ThaweeyontApi sendComment:self.comment.text];
+        [self.Api sendComment:self.comment.text];
     } else {
 
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                         message:@"Please fill more than 10 characters."
                                        delegate:nil
@@ -78,13 +78,13 @@
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender sendCommentResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender sendCommentResponse:(NSDictionary *)response {
     NSLog(@"%@",response);
     [self.navigationController popViewControllerAnimated:YES];
     
 }
 
-- (void)PFThaweeyontApi:(id)sender sendCommentErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender sendCommentErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 

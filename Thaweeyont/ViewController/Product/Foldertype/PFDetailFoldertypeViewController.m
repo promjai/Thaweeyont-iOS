@@ -36,24 +36,23 @@ BOOL refreshDataFolder;
     self.navigationItem.title = [self.obj objectForKey:@"name"];
     
     [self.view addSubview:self.waitView];
-    
-    CALayer *popup = [self.popupwaitView layer];
-    [popup setMasksToBounds:YES];
-    [popup setCornerRadius:7.0f];
+    [self startSpin];
     
     loadFolder = NO;
     noDataFolder = NO;
     refreshDataFolder = NO;
     
-    UIView *hv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-    self.tableView.tableHeaderView = hv;
-    
     self.arrObj = [[NSMutableArray alloc] init];
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    [self.ThaweeyontApi getFolderTypeByURL:[[self.obj objectForKey:@"node"] objectForKey:@"children"]];
+    [self.Api getFolderTypeByURL:[[self.obj objectForKey:@"node"] objectForKey:@"children"]];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,10 +64,71 @@ BOOL refreshDataFolder;
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (void)PFThaweeyontApi:(id)sender getFolderTypeByURLResponse:(NSDictionary *)response {
+- (void)startSpin
+{
+    if (!self.popupProgressBar) {
+        
+        if(IS_WIDESCREEN) {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 269, 30, 30)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        } else {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 225, 30, 30)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        }
+        
+    }
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    CGRect frame = [self.popupProgressBar frame];
+    self.popupProgressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    self.popupProgressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
+    [CATransaction commit];
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
+    
+    CABasicAnimation *animation;
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = [NSNumber numberWithFloat:0.0];
+    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
+    animation.delegate = self;
+    [self.popupProgressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
+    
+    [CATransaction commit];
+}
+
+- (void)animationDidStart:(CAAnimation *)anim
+{
+    
+}
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
+{
+    if (finished)
+    {
+        
+        [self startSpin];
+        
+    }
+}
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    
+    refreshDataFolder = YES;
+    [self.Api getFolderTypeByURL:[[self.obj objectForKey:@"node"] objectForKey:@"children"]];
+    
+}
+
+- (void)PFApi:(id)sender getFolderTypeByURLResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     if (!refreshDataFolder) {
         for (int i=0; i<[[response objectForKey:@"data"] count]; ++i) {
@@ -95,10 +155,11 @@ BOOL refreshDataFolder;
     
 }
 
-- (void)PFThaweeyontApi:(id)sender getFolderTypeByURLErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getFolderTypeByURLErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     if (!refreshDataFolder) {
         for (int i=0; i<[[[self.foldertypeOffline objectForKey:[[self.obj objectForKey:@"node"] objectForKey:@"children"]] objectForKey:@"data"] count]; ++i) {
@@ -199,7 +260,7 @@ BOOL refreshDataFolder;
             
             [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reload:) userInfo:nil repeats:NO];
             
-            if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+            if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
                 [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                             message:@"Coming soon."
                                            delegate:nil
@@ -239,60 +300,6 @@ BOOL refreshDataFolder;
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	//NSLog(@"%f",scrollView.contentOffset.y);
-	//[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if ( scrollView.contentOffset.y < 0.0f ) {
-        //NSLog(@"refreshData < 0.0f");
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        self.loadLabel.text = [NSString stringWithFormat:@" "];
-        self.act.alpha = 0;
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y < -60.0f ) {
-        refreshDataFolder = YES;
-        
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-        self.act.alpha = 1;
-        
-        [self.ThaweeyontApi getFolderTypeByURL:[[self.obj objectForKey:@"node"] objectForKey:@"children"]];
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if ( scrollView.contentOffset.y < -100.0f ) {
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:1.0];
-        self.tableView.frame = CGRectMake(0, 60, self.tableView.frame.size.width, self.tableView.frame.size.height);
-        [UIView commitAnimations];
-        [self performSelector:@selector(resizeTable) withObject:nil afterDelay:2];
-        
-        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        self.loadLabel.text = [NSString stringWithFormat:@"Last Updated: %@", [dateFormatter stringFromDate:[NSDate date]]];
-        self.act.alpha = 1;
-
-    }
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     float offset = (scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.frame.size.height));
@@ -300,16 +307,9 @@ BOOL refreshDataFolder;
         if (!noDataFolder) {
             refreshDataFolder = NO;
             
-            [self.ThaweeyontApi getFolderTypeByURL:[[self.obj objectForKey:@"node"] objectForKey:@"children"]];
+            [self.Api getFolderTypeByURL:[[self.obj objectForKey:@"node"] objectForKey:@"children"]];
         }
     }
-}
-
-- (void)resizeTable {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.2];
-    self.tableView.frame = CGRectMake(0, 0, 320, self.tableView.frame.size.height);
-    [UIView commitAnimations];
 }
 
 - (void)PFGalleryViewController:(id)sender sum:(NSMutableArray *)sum current:(NSString *)current{

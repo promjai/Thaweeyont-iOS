@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 @protocol PFLoginViewControllerDelegate <NSObject>
 
@@ -23,7 +23,7 @@
 @interface PFLoginViewController : UIViewController <FBLoginViewDelegate,UITextFieldDelegate>
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 
 @property (strong, nonatomic) IBOutlet UIView *blurView;
 @property (strong, nonatomic) IBOutlet UIView *loginView;

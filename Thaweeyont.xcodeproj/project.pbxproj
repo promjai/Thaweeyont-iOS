@@ -161,6 +161,9 @@
 		81C464151A048E7F00C02693 /* PFCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81C464141A048E7F00C02693 /* PFCommentViewController.xib */; };
 		81C4A2701A29C579002EDF9C /* PFMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81C4A26E1A29C579002EDF9C /* PFMessageViewController.m */; };
 		81C4A2711A29C579002EDF9C /* PFMessageViewController_Wide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81C4A26F1A29C579002EDF9C /* PFMessageViewController_Wide.xib */; };
+		81C96B911A3F2AED0072B8C4 /* PFApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 81C96B901A3F2AED0072B8C4 /* PFApi.m */; };
+		81C96B951A3F2C8B0072B8C4 /* pin_map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C96B931A3F2C8B0072B8C4 /* pin_map@2x.png */; };
+		81C96B961A3F2C8B0072B8C4 /* pin_map@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C96B941A3F2C8B0072B8C4 /* pin_map@3x.png */; };
 		81CCCA9B1A17343300A9F44C /* PFUpdateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81CCCA9A1A17343300A9F44C /* PFUpdateViewController.xib */; };
 		81CCCA9D1A17347F00A9F44C /* PFUpdateDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81CCCA9C1A17347F00A9F44C /* PFUpdateDetailViewController.xib */; };
 		81CCCA9F1A1734AC00A9F44C /* PFLanguageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81CCCA9E1A1734AC00A9F44C /* PFLanguageViewController.xib */; };
@@ -293,7 +296,6 @@
 		81F51B1119FA49080069AE94 /* MWPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 81F51AE719FA49080069AE94 /* MWPhotoBrowser.bundle */; };
 		81F51B1319FA56710069AE94 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81F51B1219FA56710069AE94 /* MapKit.framework */; };
 		81F51B1519FA569F0069AE94 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81F51B1419FA569F0069AE94 /* CoreLocation.framework */; };
-		81F80D5B19EE173F0051CAC1 /* PFThaweeyontApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F80CF219EE173E0051CAC1 /* PFThaweeyontApi.m */; };
 		81F80D5C19EE173F0051CAC1 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F80CF619EE173E0051CAC1 /* AFHTTPRequestOperation.m */; };
 		81F80D5D19EE173F0051CAC1 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F80CF819EE173E0051CAC1 /* AFHTTPRequestOperationManager.m */; };
 		81F80D5E19EE173F0051CAC1 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F80CFA19EE173E0051CAC1 /* AFHTTPSessionManager.m */; };
@@ -517,6 +519,10 @@
 		81C4A26D1A29C579002EDF9C /* PFMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFMessageViewController.h; sourceTree = "<group>"; };
 		81C4A26E1A29C579002EDF9C /* PFMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFMessageViewController.m; sourceTree = "<group>"; };
 		81C4A26F1A29C579002EDF9C /* PFMessageViewController_Wide.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFMessageViewController_Wide.xib; sourceTree = "<group>"; };
+		81C96B8F1A3F2AED0072B8C4 /* PFApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFApi.h; sourceTree = "<group>"; };
+		81C96B901A3F2AED0072B8C4 /* PFApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFApi.m; sourceTree = "<group>"; };
+		81C96B931A3F2C8B0072B8C4 /* pin_map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_map@2x.png"; sourceTree = "<group>"; };
+		81C96B941A3F2C8B0072B8C4 /* pin_map@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_map@3x.png"; sourceTree = "<group>"; };
 		81CCCA9A1A17343300A9F44C /* PFUpdateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFUpdateViewController.xib; sourceTree = "<group>"; };
 		81CCCA9C1A17347F00A9F44C /* PFUpdateDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFUpdateDetailViewController.xib; sourceTree = "<group>"; };
 		81CCCA9E1A1734AC00A9F44C /* PFLanguageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFLanguageViewController.xib; sourceTree = "<group>"; };
@@ -718,8 +724,6 @@
 		81F51AE719FA49080069AE94 /* MWPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MWPhotoBrowser.bundle; sourceTree = "<group>"; };
 		81F51B1219FA56710069AE94 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		81F51B1419FA569F0069AE94 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		81F80CF119EE173E0051CAC1 /* PFThaweeyontApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFThaweeyontApi.h; sourceTree = "<group>"; };
-		81F80CF219EE173E0051CAC1 /* PFThaweeyontApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFThaweeyontApi.m; sourceTree = "<group>"; };
 		81F80CF519EE173E0051CAC1 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		81F80CF619EE173E0051CAC1 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		81F80CF719EE173E0051CAC1 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -1264,6 +1268,15 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		81C96B921A3F2C8B0072B8C4 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				81C96B931A3F2C8B0072B8C4 /* pin_map@2x.png */,
+				81C96B941A3F2C8B0072B8C4 /* pin_map@3x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		81DFE06F1A0B2660000B5B82 /* Language */ = {
 			isa = PBXGroup;
 			children = (
@@ -1506,6 +1519,7 @@
 		81F3B9B01A1066E00044774C /* MapAll */ = {
 			isa = PBXGroup;
 			children = (
+				81C96B921A3F2C8B0072B8C4 /* Images */,
 				81F3B9B11A1066F10044774C /* PFMapAllViewController.h */,
 				81F3B9B21A1066F10044774C /* PFMapAllViewController.m */,
 				81F3B9B31A1066F10044774C /* PFMapAllViewController_Wide.xib */,
@@ -1713,8 +1727,8 @@
 		81F80CF019EE173E0051CAC1 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				81F80CF119EE173E0051CAC1 /* PFThaweeyontApi.h */,
-				81F80CF219EE173E0051CAC1 /* PFThaweeyontApi.m */,
+				81C96B8F1A3F2AED0072B8C4 /* PFApi.h */,
+				81C96B901A3F2AED0072B8C4 /* PFApi.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -2012,6 +2026,7 @@
 				81000ACE1A00C7590077F671 /* ic_mail@2x.png in Resources */,
 				812BA6F61A01F277000A3148 /* bt_fill_password@3x.png in Resources */,
 				81CCCABB1A17374A00A9F44C /* PFBranchDetailViewController.xib in Resources */,
+				81C96B961A3F2C8B0072B8C4 /* pin_map@3x.png in Resources */,
 				81C464151A048E7F00C02693 /* PFCommentViewController.xib in Resources */,
 				81F3E2841A270B1A005C85EC /* icon_share@2x.png in Resources */,
 				81000AD21A00C7590077F671 /* unchecked.png in Resources */,
@@ -2046,6 +2061,7 @@
 				81590BEB1A09F05E00D1B8E0 /* th_contact_off.png in Resources */,
 				81ED3FDF19F9FF4C003D3497 /* ic_email@2x.png in Resources */,
 				81CCCAB51A1736DD00A9F44C /* PFContactViewController.xib in Resources */,
+				81C96B951A3F2C8B0072B8C4 /* pin_map@2x.png in Resources */,
 				81590C051A09F05E00D1B8E0 /* en_coupon_off@3x.png in Resources */,
 				81000AC31A00C7590077F671 /* PFAccountCell.xib in Resources */,
 				81000AC51A00C7590077F671 /* bt_setting@2x.png in Resources */,
@@ -2192,6 +2208,7 @@
 				81590C181A0A07FD00D1B8E0 /* PFEditDetailViewController.m in Sources */,
 				81AAC48919EE160B00B369CE /* AppDelegate.m in Sources */,
 				81F51AE919FA49080069AE94 /* MWCaptionView.m in Sources */,
+				81C96B911A3F2AED0072B8C4 /* PFApi.m in Sources */,
 				81F80D6A19EE173F0051CAC1 /* UIProgressView+AFNetworking.m in Sources */,
 				81F80D5D19EE173F0051CAC1 /* AFHTTPRequestOperationManager.m in Sources */,
 				81F51AF319FA49080069AE94 /* README.mdown in Sources */,
@@ -2271,7 +2288,6 @@
 				81C4A2701A29C579002EDF9C /* PFMessageViewController.m in Sources */,
 				8193F04A1A08BC81002B95B9 /* PFDetailFoldertype1ViewController.m in Sources */,
 				81ED400419FA0A61003D3497 /* PFBranchesViewController.m in Sources */,
-				81F80D5B19EE173F0051CAC1 /* PFThaweeyontApi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -39,12 +39,12 @@ NSTimer *timmer;
     [self.view addSubview:self.waitView];
     [self startSpin];
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    [self.ThaweeyontApi getCoupon:@"15" link:@"NO"];
+    [self.Api getCoupon:@"15" link:@"NO"];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navItem.title = @"Coupon";
     } else {
         self.navItem.title = @"คูปอง";
@@ -52,10 +52,8 @@ NSTimer *timmer;
     
     // Navbar setup
     [[self.navController navigationBar] setBarTintColor:[UIColor colorWithRed:237.0f/255.0f green:28.0f/255.0f blue:36.0f/255.0f alpha:1.0f]];
-    
     [[self.navController navigationBar] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                                  [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], NSForegroundColorAttributeName, nil]];
-    
     [[self.navController navigationBar] setTranslucent:YES];
     [self.view addSubview:self.navController.view];
     
@@ -70,6 +68,10 @@ NSTimer *timmer;
     
     self.arrObj = [[NSMutableArray alloc] init];
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,16 +85,14 @@ NSTimer *timmer;
 
 - (void)startSpin
 {
-    self.statusProgress = @"startSpin";
-    
     if (!self.popupProgressBar) {
         
         if(IS_WIDESCREEN) {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 274, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 269, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
             [self.waitView addSubview:self.popupProgressBar];
         } else {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 230, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 225, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
             [self.waitView addSubview:self.popupProgressBar];
         }
@@ -121,76 +121,26 @@ NSTimer *timmer;
     [CATransaction commit];
 }
 
-- (void)startPullToRefresh
-{
-    
-    self.statusProgress = @"startPullToRefresh";
-    
-    if (!self.progressBar) {
-        
-        self.progressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 81, 20, 20)];
-        self.progressBar.image = [UIImage imageNamed:@"ic_loading"];
-        [self.view addSubview:self.progressBar];
-        
-    }
-    
-    self.progressBar.hidden = NO;
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-    CGRect frame = [self.progressBar frame];
-    self.progressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
-    self.progressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
-    [CATransaction commit];
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
-    
-    CABasicAnimation *animation;
-    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    animation.fromValue = [NSNumber numberWithFloat:0.0];
-    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
-    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
-    animation.delegate = self;
-    [self.progressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
-    
-    [CATransaction commit];
-}
-
-- (void)stopPullToRefresh
-{
-    [self.progressBar.layer removeAllAnimations];
-    self.progressBar.hidden = YES;
-}
-
 - (void)animationDidStart:(CAAnimation *)anim
 {
     
 }
 
-/* Called when the animation either completes its active duration or
- * is removed from the object it is attached to (i.e. the layer). 'flag'
- * is true if the animation reached the end of its active duration
- * without being removed. */
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
 {
     if (finished)
     {
         
-        if ([self.statusProgress isEqualToString:@"startSpin"]) {
-            [self startSpin];
-        } else {
-            [self startPullToRefresh];
-        }
+        [self startSpin];
         
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender getCouponResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getCouponResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     [self.NoInternetView removeFromSuperview];
     self.checkinternet = @"connect";
@@ -220,15 +170,17 @@ NSTimer *timmer;
     [self.couponOffline synchronize];
     
     if ([[self.couponOffline objectForKey:@"coupon_updated"] intValue] != [[response objectForKey:@"last_updated"] intValue]) {
-        [self reloadData:YES];
+        [self.tableView reloadData];
         [self.couponOffline setObject:[response objectForKey:@"last_updated"] forKey:@"coupon_updated"];
     }
+    
 }
 
-- (void)PFThaweeyontApi:(id)sender getCouponErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getCouponErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     self.checkinternet = @"error";
     self.NoInternetView.frame = CGRectMake(0, 64, self.NoInternetView.frame.size.width, self.NoInternetView.frame.size.height);
@@ -250,25 +202,23 @@ NSTimer *timmer;
     }
     
     if ([[self.couponOffline objectForKey:@"coupon_updated"] intValue] != [[[self.couponOffline objectForKey:@"couponArray"] objectForKey:@"last_updated"] intValue]) {
-        [self reloadData:YES];
+        [self.tableView reloadData];
         [self.couponOffline setObject:[[self.couponOffline objectForKey:@"couponArray"] objectForKey:@"last_updated"] forKey:@"coupon_updated"];
     }
+    
+}
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    
+    refreshDataCoupon = YES;
+    [self.Api getCoupon:@"15" link:@"NO"];
+    
 }
 
 - (void)countDown {
     couponInt -= 1;
     if (couponInt == 0) {
         [self.NoInternetView removeFromSuperview];
-    }
-}
-
-- (void)reloadData:(BOOL)animated
-{
-    [self.tableView reloadData];
-    if (!noDataCoupon){
-        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width,self.tableView.contentSize.height);
-    } else {
-        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width,self.tableView.contentSize.height);
     }
 }
 
@@ -328,53 +278,6 @@ NSTimer *timmer;
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    //[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if ( scrollView.contentOffset.y < 0.0f ) {
-        //NSLog(@"refreshData < 0.0f");
-        
-        [self stopPullToRefresh];
-        
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y < -60.0f ) {
-        
-        //[self stopPullToRefresh];
-        
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if ( scrollView.contentOffset.y < -100.0f ) {
-        
-        refreshDataCoupon = YES;
-        [self startPullToRefresh];
-        [self.ThaweeyontApi getCoupon:@"15" link:@"NO"];
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:1.0];
-        self.tableView.frame = CGRectMake(0, 60, self.tableView.frame.size.width, self.tableView.frame.size.height);
-        [UIView commitAnimations];
-        [self performSelector:@selector(resizeTable) withObject:nil afterDelay:2];
-        
-        if ([[self.obj objectForKey:@"total"] intValue] == 0) {
-            
-            [self startPullToRefresh];
-            
-        }
-
-    }
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     float offset = (scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.frame.size.height));
@@ -383,19 +286,11 @@ NSTimer *timmer;
             refreshDataCoupon = NO;
             
             if ([self.checkinternet isEqualToString:@"connect"]) {
-                [self.ThaweeyontApi getCoupon:@"NO" link:self.paging];
+                [self.Api getCoupon:@"NO" link:self.paging];
             }
             
         }
     }
-}
-
-- (void)resizeTable {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.2];
-    self.tableView.frame = CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height);
-    [UIView commitAnimations];
-    [self stopPullToRefresh];
 }
 
 - (void)PFImageViewController:(id)sender viewPicture:(UIImage *)image{
@@ -405,8 +300,8 @@ NSTimer *timmer;
 - (void)PFCouponDetailViewControllerBack {
     
     [self.delegate ShowTabbar];
-    [self viewDidLoad];
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    [self.tableView reloadData];
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navItem.title = @"Coupon";
     } else {
         self.navItem.title = @"คูปอง";

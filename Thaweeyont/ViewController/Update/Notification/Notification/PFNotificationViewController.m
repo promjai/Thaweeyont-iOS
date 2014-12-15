@@ -35,24 +35,25 @@ BOOL refreshDataNoti;
     [super viewDidLoad];
     
     [self.view addSubview:self.waitView];
+    [self startSpin];
     
-    CALayer *popup = [self.popupwaitView layer];
-    [popup setMasksToBounds:YES];
-    [popup setCornerRadius:7.0f];
-    
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
 
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navigationItem.title = @"Notification";
     } else {
         self.navigationItem.title = @"การแจ้งเตือน";
     }
     
-    [self.ThaweeyontApi getNotification:@"15" link:@"NO"];
-    [self.ThaweeyontApi clearBadge];
+    [self.Api getNotification:@"15" link:@"NO"];
+    [self.Api clearBadge];
     
     self.arrObj = [[NSMutableArray alloc] init];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
 
 }
 
@@ -66,10 +67,71 @@ BOOL refreshDataNoti;
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (void)PFThaweeyontApi:(id)sender getNotificationResponse:(NSDictionary *)response {
+- (void)startSpin
+{
+    if (!self.popupProgressBar) {
+        
+        if(IS_WIDESCREEN) {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 269, 30, 30)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        } else {
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 225, 30, 30)];
+            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
+            [self.waitView addSubview:self.popupProgressBar];
+        }
+        
+    }
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    CGRect frame = [self.popupProgressBar frame];
+    self.popupProgressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
+    self.popupProgressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
+    [CATransaction commit];
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
+    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
+    
+    CABasicAnimation *animation;
+    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = [NSNumber numberWithFloat:0.0];
+    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
+    animation.delegate = self;
+    [self.popupProgressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
+    
+    [CATransaction commit];
+}
+
+- (void)animationDidStart:(CAAnimation *)anim
+{
+    
+}
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
+{
+    if (finished)
+    {
+        
+        [self startSpin];
+        
+    }
+}
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    
+    refreshDataNoti = YES;
+    [self.Api getNotification:@"15" link:@"NO"];
+    
+}
+
+- (void)PFApi:(id)sender getNotificationResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     self.checkinternet = @"connect";
     
@@ -97,10 +159,11 @@ BOOL refreshDataNoti;
     [self.tableView reloadData];
 }
 
-- (void)PFThaweeyontApi:(id)sender getNotificationErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getNotificationErrorResponse:(NSString *)errorResponse {
     //NSLog(@"%@",errorResponse);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     self.checkinternet = @"error";
     
@@ -127,7 +190,7 @@ BOOL refreshDataNoti;
 
 //feed
 
-- (void)PFThaweeyontApi:(id)sender getFeedByIdResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getFeedByIdResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     PFUpdateDetailViewController *updatedetail = [[PFUpdateDetailViewController alloc] init];
@@ -143,13 +206,13 @@ BOOL refreshDataNoti;
     [self.navigationController pushViewController:updatedetail animated:YES];
 }
 
-- (void)PFThaweeyontApi:(id)sender getFeedByIdErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getFeedByIdErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 
 //promotion
 
-- (void)PFThaweeyontApi:(id)sender getPromotionByIdResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getPromotionByIdResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     PFPromotionDetailViewController *promotiondetail = [[PFPromotionDetailViewController alloc] init];
@@ -165,13 +228,13 @@ BOOL refreshDataNoti;
     [self.navigationController pushViewController:promotiondetail animated:YES];
 }
 
-- (void)PFThaweeyontApi:(id)sender getPromotionByIdErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getPromotionByIdErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 
 //coupon
 
-- (void)PFThaweeyontApi:(id)sender getCouponByIdResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getCouponByIdResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     PFCouponDetailViewController *coupondetail = [[PFCouponDetailViewController alloc] init];
@@ -188,13 +251,13 @@ BOOL refreshDataNoti;
     [self.navigationController pushViewController:coupondetail animated:YES];
 }
 
-- (void)PFThaweeyontApi:(id)sender getCouponByIdErrorResponse:(NSDictionary *)errorResponse {
+- (void)PFApi:(id)sender getCouponByIdErrorResponse:(NSDictionary *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 
 //message
 
-- (void)PFThaweeyontApi:(id)sender getMessageByIdResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getMessageByIdResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     PFMessageViewController *coupondetail = [[PFMessageViewController alloc] init];
@@ -212,7 +275,7 @@ BOOL refreshDataNoti;
     
 }
 
-- (void)PFThaweeyontApi:(id)sender getMessageByIdErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getMessageByIdErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 
@@ -258,25 +321,25 @@ BOOL refreshDataNoti;
     
     if ( [type isEqualToString:@"news"] ) {
         
-        [self.ThaweeyontApi getFeedById:[[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"object"] objectForKey:@"id"]];
+        [self.Api getFeedById:[[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"object"] objectForKey:@"id"]];
         
     } else if ( [type isEqualToString:@"promotion"] ) {
         
-        [self.ThaweeyontApi getPromotionById:[[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"object"] objectForKey:@"id"]];
+        [self.Api getPromotionById:[[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"object"] objectForKey:@"id"]];
         
     } else if ( [type isEqualToString:@"coupon"] ) {
         
-        [self.ThaweeyontApi getCouponById:[[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"object"] objectForKey:@"id"]];
+        [self.Api getCouponById:[[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"object"] objectForKey:@"id"]];
         
     } else if ( [type isEqualToString:@"message"] ) {
     
-        [self.ThaweeyontApi getMessageById:[[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"object"] objectForKey:@"id"]];
+        [self.Api getMessageById:[[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"object"] objectForKey:@"id"]];
     
     }
     
     NSString *urlStr = [[NSString alloc] initWithFormat:@"%@user/notify/read/%@",API_URL,[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"id"]];
     
-    NSDictionary *parameters = @{@"access_token":[self.ThaweeyontApi getAccessToken]};
+    NSDictionary *parameters = @{@"access_token":[self.Api getAccessToken]};
     self.manager = [AFHTTPRequestOperationManager manager];
     self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
     self.manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -292,34 +355,6 @@ BOOL refreshDataNoti;
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-	//NSLog(@"%f",scrollView.contentOffset.y);
-	//[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if ( scrollView.contentOffset.y < 0.0f ) {
-        //NSLog(@"refreshData < 0.0f");
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y < -60.0f ) {
-        refreshDataNoti = YES;
-        
-        [self.ThaweeyontApi getNotification:@"15" link:@"NO"];
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if ( scrollView.contentOffset.y < -100.0f ) {
-
-    }
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     float offset = (scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.frame.size.height));
@@ -328,17 +363,10 @@ BOOL refreshDataNoti;
             refreshDataNoti = NO;
             
             if ([self.checkinternet isEqualToString:@"connect"]) {
-                [self.ThaweeyontApi getNotification:@"NO" link:self.paging];
+                [self.Api getNotification:@"NO" link:self.paging];
             }
         }
     }
-}
-
-- (void)resizeTable {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.2];
-    self.tableView.frame = CGRectMake(0, 0, 320, self.tableView.frame.size.height);
-    [UIView commitAnimations];
 }
 
 - (void)PFImageViewController:(id)sender viewPicture:(UIImage *)image {
@@ -346,19 +374,39 @@ BOOL refreshDataNoti;
 }
 
 - (void)PFUpdateDetailViewControllerBack {
-    [self viewDidLoad];
+    [self.tableView reloadData];
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
+        self.navigationItem.title = @"Notification";
+    } else {
+        self.navigationItem.title = @"การแจ้งเตือน";
+    }
 }
 
 - (void)PFPromotionDetailViewControllerBack {
-    [self viewDidLoad];
+    [self.tableView reloadData];
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
+        self.navigationItem.title = @"Notification";
+    } else {
+        self.navigationItem.title = @"การแจ้งเตือน";
+    }
 }
 
 - (void)PFCouponDetailViewControllerBack {
-    [self viewDidLoad];
+    [self.tableView reloadData];
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
+        self.navigationItem.title = @"Notification";
+    } else {
+        self.navigationItem.title = @"การแจ้งเตือน";
+    }
 }
 
 - (void)PFMessageViewControllerBack {
-    [self viewDidLoad];
+    [self.tableView reloadData];
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
+        self.navigationItem.title = @"Notification";
+    } else {
+        self.navigationItem.title = @"การแจ้งเตือน";
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -367,7 +415,6 @@ BOOL refreshDataNoti;
         // 'Back' button was pressed.  We know this is true because self is no longer
         // in the navigation stack.
         if([self.delegate respondsToSelector:@selector(PFNotificationViewControllerBack)]){
-            [self.ThaweeyontApi getNotification:@"15" link:@"NO"];
             [self.delegate PFNotificationViewControllerBack];
         }
     }

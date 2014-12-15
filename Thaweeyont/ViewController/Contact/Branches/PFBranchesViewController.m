@@ -33,12 +33,12 @@ BOOL refreshDataBranch;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    [self.ThaweeyontApi getContactBranches];
+    [self.Api getContactBranches];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navigationItem.title = @"Our Branches";
     } else {
         self.navigationItem.title = @"สาขาของเรา";
@@ -49,6 +49,10 @@ BOOL refreshDataBranch;
     refreshDataBranch = NO;
     
     self.arrObj = [[NSMutableArray alloc] init];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
     
 }
 
@@ -61,8 +65,17 @@ BOOL refreshDataBranch;
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (void)PFThaweeyontApi:(id)sender getContactBranchesResponse:(NSDictionary *)response {
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    
+    refreshDataBranch = YES;
+    [self.Api getContactBranches];
+    
+}
+
+- (void)PFApi:(id)sender getContactBranchesResponse:(NSDictionary *)response {
     //NSLog(@"contactBranch %@",response);
+    
+    [self.refreshControl endRefreshing];
     
     if (!refreshDataBranch) {
         [self.arrObj removeAllObjects];
@@ -79,12 +92,14 @@ BOOL refreshDataBranch;
     [self.contactOffline setObject:response forKey:@"branchesArray"];
     [self.contactOffline synchronize];
     
-    [self reloadData:YES];
+    [self.tableView reloadData];
 
 }
 
-- (void)PFThaweeyontApi:(id)sender getContactBranchesErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getContactBranchesErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
+    
+    [self.refreshControl endRefreshing];
     
     if (!refreshDataBranch) {
         [self.arrObj removeAllObjects];
@@ -98,18 +113,8 @@ BOOL refreshDataBranch;
         }
     }
     
-    [self reloadData:YES];
-    
-}
-
-- (void)reloadData:(BOOL)animated
-{
     [self.tableView reloadData];
-    if (!noDataBranch){
-        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width,self.tableView.contentSize.height);
-    } else {
-        self.tableView.contentSize = CGSizeMake(self.tableView.contentSize.width,self.tableView.contentSize.height);
-    }
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -160,57 +165,12 @@ BOOL refreshDataBranch;
 
 - (void)PFBranchDetailViewControllerBack {
     
-    [self.ThaweeyontApi getContactBranches];
+    [self.Api getContactBranches];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navigationItem.title = @"Our Branches";
     } else {
         self.navigationItem.title = @"สาขาของเรา";
-    }
-}
-
-#pragma mark -
-#pragma mark UIScrollViewDelegate Methods
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    //[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if ( scrollView.contentOffset.y < 0.0f ) {
-        //NSLog(@"refreshData < 0.0f");
-        
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y < -60.0f ) {
-        
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if ( scrollView.contentOffset.y < -100.0f ) {
-        
-        refreshDataBranch = YES;
-        [self.ThaweeyontApi getContactBranches];
-        
-    }
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    float offset = (scrollView.contentOffset.y - (scrollView.contentSize.height - scrollView.frame.size.height));
-    if (offset >= 0 && offset <= 5) {
-        if (!noDataBranch) {
-            refreshDataBranch = NO;
-            
-            [self.ThaweeyontApi getContactBranches];
-        }
     }
 }
 

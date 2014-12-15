@@ -14,7 +14,7 @@
 #import "AsyncImageView.h"
 #import "UILabel+UILabelDynamicHeight.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 @protocol PFCatalogDetailViewControllerDelegate <NSObject>
 
@@ -34,11 +34,14 @@
 }
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 @property (strong, nonatomic) NSMutableArray *arrObj;
 @property (strong, nonatomic) NSDictionary *obj;
 
 @property NSUserDefaults *catalogDetailOffline;
+
+@property (strong, nonatomic) IBOutlet UIView *waitView;
+@property (strong, nonatomic) UIImageView *popupProgressBar;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 

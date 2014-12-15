@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UILabel+UILabelDynamicHeight.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 @protocol PFMessageViewControllerDelegate <NSObject>
 
@@ -20,7 +20,7 @@
 @interface PFMessageViewController : UIViewController
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 
 @property (retain, nonatomic) NSString *message;
 

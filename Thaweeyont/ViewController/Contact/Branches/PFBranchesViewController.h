@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFBranchesCell.h"
 #import "PFBranchDetailViewController.h"
@@ -23,10 +23,12 @@
 @interface PFBranchesViewController : UIViewController <UITableViewDelegate,UITableViewDataSource>
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 @property (strong, nonatomic) NSMutableArray *arrObj;
 
 @property NSUserDefaults *contactOffline;
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 

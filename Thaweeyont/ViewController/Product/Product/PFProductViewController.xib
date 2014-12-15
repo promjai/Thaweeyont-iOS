@@ -7,33 +7,35 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PFProductViewController">
             <connections>
                 <outlet property="NoInternetView" destination="lqf-QC-I3q" id="gwB-yw-W4u"/>
-                <outlet property="catalogView" destination="UQI-it-nYG" id="j5A-Wa-2tA"/>
-                <outlet property="catalogtableView" destination="o0n-dR-8Xc" id="9gs-6f-f41"/>
-                <outlet property="mainView" destination="xd9-D4-E2Z" id="SDW-li-qjh"/>
                 <outlet property="navBar" destination="znE-1F-R8F" id="aE5-qU-7ax"/>
                 <outlet property="navController" destination="Z4v-0Q-4cS" id="4L1-Xz-Xec"/>
                 <outlet property="navItem" destination="PUx-s9-lhR" id="YaS-iy-zJv"/>
-                <outlet property="promotionView" destination="TAY-Yb-XAY" id="BCp-rw-gM0"/>
-                <outlet property="promotiontableView" destination="V02-dh-6C9" id="HfP-MP-RTn"/>
+                <outlet property="popupWaitView" destination="Wpc-2f-JQx" id="pVG-Hy-bMG"/>
                 <outlet property="segmented" destination="wJj-vl-Az4" id="Chb-vY-IWX"/>
-                <outlet property="view" destination="dv5-8o-8wf" id="JKf-oG-eOq"/>
-                <outlet property="waitView" destination="ffc-fn-ipc" id="LOP-o1-CXi"/>
+                <outlet property="tableView" destination="DWc-Od-c0R" id="tYp-qE-9Lb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="waitView" destination="QSq-eU-1Pz" id="HN7-dT-PNn"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="ffc-fn-ipc">
+        <view contentMode="scaleToFill" id="QSq-eU-1Pz">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+            <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wpc-2f-JQx">
+                    <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="dv5-8o-8wf">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="169" y="335"/>
         </view>
         <navigationController definesPresentationContext="YES" id="Z4v-0Q-4cS">
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -49,6 +51,16 @@
                     <view key="view" contentMode="scaleToFill" id="xd9-D4-E2Z">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="DWc-Od-c0R">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="-1" id="QL5-Nq-cwq"/>
+                                    <outlet property="delegate" destination="-1" id="S8m-LD-VCE"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="PUx-s9-lhR">
@@ -66,40 +78,6 @@
                 </viewController>
             </viewControllers>
         </navigationController>
-        <view contentMode="scaleToFill" id="TAY-Yb-XAY">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="V02-dh-6C9">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="xAE-M6-2BB"/>
-                        <outlet property="delegate" destination="-1" id="yEh-52-5qW"/>
-                    </connections>
-                </tableView>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="353" y="961"/>
-        </view>
-        <view contentMode="scaleToFill" id="UQI-it-nYG">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="o0n-dR-8Xc">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="BCG-e8-Vrr"/>
-                        <outlet property="delegate" destination="-1" id="laZ-go-Z4K"/>
-                    </connections>
-                </tableView>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="726" y="961"/>
-        </view>
         <view alpha="0.75" contentMode="scaleToFill" id="lqf-QC-I3q">
             <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

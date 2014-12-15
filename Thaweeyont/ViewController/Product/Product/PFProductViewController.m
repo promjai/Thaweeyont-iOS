@@ -40,10 +40,10 @@ NSTimer *timmer;
     [self.view addSubview:self.waitView];
     [self startSpin];
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         [self.segmented setTitle:@"Promotion" forSegmentAtIndex:0];
         [self.segmented setTitle:@"Catalog" forSegmentAtIndex:1];
     } else {
@@ -53,32 +53,32 @@ NSTimer *timmer;
     
     // Navbar setup
     [[self.navController navigationBar] setBarTintColor:[UIColor colorWithRed:237.0f/255.0f green:28.0f/255.0f blue:36.0f/255.0f alpha:1.0f]];
-    
     [[self.navController navigationBar] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
                                                                  [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], NSForegroundColorAttributeName, nil]];
-    
     [[self.navController navigationBar] setTranslucent:YES];
     [self.view addSubview:self.navController.view];
     
     self.checksegmented = @"0";
+    self.checkstatus = @"refresh";
     [self.segmented addTarget:self
                        action:@selector(segmentselect:)
              forControlEvents:UIControlEventValueChanged];
     
-    //UIView *hv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
     UIView *fv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    //self.promotiontableView.tableHeaderView = hv;
-    self.promotiontableView.tableFooterView = fv;
+    self.tableView.tableFooterView = fv;
     
-    [self.mainView addSubview:self.promotionView];
-    
-    [self.ThaweeyontApi getPromotion:@"15" link:@"NO"];
+    [self.Api getPromotion:@"15" link:@"NO"];
     
     [self.promotionOffline setObject:@"0" forKey:@"promotion_updated"];
     [self.catalogOffline setObject:@"0" forKey:@"catalog_updated"];
     
     self.arrObjCatalog = [[NSMutableArray alloc] init];
     self.arrObjPromotion = [[NSMutableArray alloc] init];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:self.refreshControl];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,18 +92,17 @@ NSTimer *timmer;
 
 - (void)startSpin
 {
-    self.statusProgress = @"startSpin";
     
     if (!self.popupProgressBar) {
         
         if(IS_WIDESCREEN) {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 274, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 205, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
-            [self.waitView addSubview:self.popupProgressBar];
+            [self.popupWaitView addSubview:self.popupProgressBar];
         } else {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 230, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 161, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
-            [self.waitView addSubview:self.popupProgressBar];
+            [self.popupWaitView addSubview:self.popupProgressBar];
         }
         
     }
@@ -130,68 +129,17 @@ NSTimer *timmer;
     [CATransaction commit];
 }
 
-- (void)startPullToRefresh
-{
-    
-    self.statusProgress = @"startPullToRefresh";
-    
-    if (!self.progressBar) {
-        
-        self.progressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 81, 20, 20)];
-        self.progressBar.image = [UIImage imageNamed:@"ic_loading"];
-        [self.view addSubview:self.progressBar];
-        
-    }
-    
-    self.progressBar.hidden = NO;
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-    CGRect frame = [self.progressBar frame];
-    self.progressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
-    self.progressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
-    [CATransaction commit];
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
-    
-    CABasicAnimation *animation;
-    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    animation.fromValue = [NSNumber numberWithFloat:0.0];
-    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
-    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
-    animation.delegate = self;
-    [self.progressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
-    
-    [CATransaction commit];
-}
-
-- (void)stopPullToRefresh
-{
-    [self.progressBar.layer removeAllAnimations];
-    self.progressBar.hidden = YES;
-}
-
 - (void)animationDidStart:(CAAnimation *)anim
 {
     
 }
 
-/* Called when the animation either completes its active duration or
- * is removed from the object it is attached to (i.e. the layer). 'flag'
- * is true if the animation reached the end of its active duration
- * without being removed. */
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
 {
     if (finished)
     {
         
-        if ([self.statusProgress isEqualToString:@"startSpin"]) {
-            [self startSpin];
-        } else {
-            [self startPullToRefresh];
-        }
+        [self startSpin];
         
     }
 }
@@ -200,38 +148,35 @@ NSTimer *timmer;
 
     if (self.segmented.selectedSegmentIndex == 0) {
         self.checksegmented = @"0";
-        [self stopPullToRefresh];
+        self.checkstatus = @"refresh";
+        [self.view addSubview:self.waitView];
+        [self startSpin];
         
         UIView *fv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        self.promotiontableView.tableFooterView = fv;
+        self.tableView.tableFooterView = fv;
         
-        [self.catalogView removeFromSuperview];
-        [self.mainView addSubview:self.promotionView];
-        
-        [self.ThaweeyontApi getPromotion:@"15" link:@"NO"];
+        [self.Api getPromotion:@"15" link:@"NO"];
     }
     if (self.segmented.selectedSegmentIndex == 1) {
         self.checksegmented = @"1";
-        [self stopPullToRefresh];
+        self.checkstatus = @"refresh";
+        [self.view addSubview:self.waitView];
+        [self startSpin];
         
-        UIView *hv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
         UIView *fv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        self.catalogtableView.tableHeaderView = hv;
-        self.catalogtableView.tableFooterView = fv;
+        self.tableView.tableFooterView = fv;
         
-        [self.promotionView removeFromSuperview];
-        [self.mainView addSubview:self.catalogView];
-        
-        [self.ThaweeyontApi getCatalog:@"15" link:@"NO"];
+        [self.Api getCatalog:@"15" link:@"NO"];
         
     }
     
 }
 
-- (void)PFThaweeyontApi:(id)sender getPromotionResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getPromotionResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     [self.NoInternetView removeFromSuperview];
     self.checkinternet = @"connect";
@@ -261,15 +206,21 @@ NSTimer *timmer;
     [self.promotionOffline synchronize];
     
     if ([[self.promotionOffline objectForKey:@"promotion_updated"] intValue] != [[response objectForKey:@"last_updated"] intValue]) {
-        [self reloadData:YES];
+        [self.tableView reloadData];
         [self.promotionOffline setObject:[response objectForKey:@"last_updated"] forKey:@"promotion_updated"];
     }
+    
+    if ([self.checkstatus isEqualToString:@"refresh"]) {
+        [self.tableView reloadData];
+    }
+    
 }
 
-- (void)PFThaweeyontApi:(id)sender getPromotionErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getPromotionErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     self.checkinternet = @"error";
     self.NoInternetView.frame = CGRectMake(0, 64, self.NoInternetView.frame.size.width, self.NoInternetView.frame.size.height);
@@ -291,16 +242,21 @@ NSTimer *timmer;
     }
     
     if ([[self.promotionOffline objectForKey:@"promotion_updated"] intValue] != [[[self.promotionOffline objectForKey:@"promotionArray"] objectForKey:@"last_updated"] intValue]) {
-        [self reloadData:YES];
+        [self.tableView reloadData];
         [self.promotionOffline setObject:[[self.promotionOffline objectForKey:@"promotionArray"] objectForKey:@"last_updated"] forKey:@"promotion_updated"];
+    }
+    
+    if ([self.checkstatus isEqualToString:@"refresh"]) {
+        [self.tableView reloadData];
     }
     
 }
 
-- (void)PFThaweeyontApi:(id)sender getCatalogResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getCatalogResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     [self.NoInternetView removeFromSuperview];
     self.checkinternet = @"connect";
@@ -330,16 +286,21 @@ NSTimer *timmer;
     [self.catalogOffline synchronize];
     
     if ([[self.catalogOffline objectForKey:@"catalog_updated"] intValue] != [[response objectForKey:@"last_updated"] intValue]) {
-        [self reloadData:YES];
+        [self.tableView reloadData];
         [self.catalogOffline setObject:[response objectForKey:@"last_updated"] forKey:@"catalog_updated"];
+    }
+    
+    if ([self.checkstatus isEqualToString:@"refresh"]) {
+        [self.tableView reloadData];
     }
     
 }
 
-- (void)PFThaweeyontApi:(id)sender getCatalogErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getCatalogErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [self.waitView removeFromSuperview];
+    [self.refreshControl endRefreshing];
     
     self.checkinternet = @"error";
     self.NoInternetView.frame = CGRectMake(0, 64, self.NoInternetView.frame.size.width, self.NoInternetView.frame.size.height);
@@ -361,8 +322,30 @@ NSTimer *timmer;
     }
     
     if ([[self.catalogOffline objectForKey:@"catalog_updated"] intValue] != [[[self.catalogOffline objectForKey:@"catalogArray"] objectForKey:@"last_updated"] intValue]) {
-        [self reloadData:YES];
+        [self.tableView reloadData];
         [self.catalogOffline setObject:[[self.catalogOffline objectForKey:@"catalogArray"] objectForKey:@"last_updated"] forKey:@"catalog_updated"];
+    }
+    
+    if ([self.checkstatus isEqualToString:@"refresh"]) {
+        [self.tableView reloadData];
+    }
+    
+}
+
+- (void)refresh:(UIRefreshControl *)refreshControl {
+    
+    if ([self.checksegmented isEqualToString:@"0"]) {
+        
+        refreshDataProduct = YES;
+        [self.Api getPromotion:@"15" link:@"NO"];
+        self.checkstatus = @"notrefresh";
+        
+    } else {
+
+        refreshDataProduct = YES;
+        [self.Api getCatalog:@"15" link:@"NO"];
+        self.checkstatus = @"notrefresh";
+        
     }
     
 }
@@ -372,12 +355,6 @@ NSTimer *timmer;
     if (productInt == 0) {
         [self.NoInternetView removeFromSuperview];
     }
-}
-
-- (void)reloadData:(BOOL)animated
-{
-    [self.promotiontableView reloadData];
-    [self.catalogtableView reloadData];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -500,9 +477,7 @@ NSTimer *timmer;
             
             if ([children_length isEqualToString:@"0"]) {
                 
-                [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reload:) userInfo:nil repeats:NO];
-                
-                if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+                if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
                     [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                                 message:@"Coming soon."
                                                delegate:nil
@@ -552,79 +527,8 @@ NSTimer *timmer;
     }
 }
 
--(void)reload:(NSTimer *)timer
-{
-    [self.catalogtableView reloadData];
-}
-
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    //[_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if ( scrollView.contentOffset.y < 0.0f ) {
-        //NSLog(@"refreshData < 0.0f");
-        
-        [self stopPullToRefresh];
-        
-    }
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    //NSLog(@"%f",scrollView.contentOffset.y);
-    if (scrollView.contentOffset.y < -60.0f ) {
-        refreshDataProduct = YES;
-        
-        [self startPullToRefresh];
-        
-        if ([self.checksegmented isEqualToString:@"0"]) {
-            
-            [self.ThaweeyontApi getPromotion:@"15" link:@"NO"];
-            [self startPullToRefresh];
-            
-        } else {
-            
-            [self.ThaweeyontApi getCatalog:@"15" link:@"NO"];
-            [self startPullToRefresh];
-            
-        }
-        
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    if ( scrollView.contentOffset.y < -100.0f ) {
-        
-        if ([self.checksegmented isEqualToString:@"0"]) {
-            
-            [UIView beginAnimations:nil context:NULL];
-            [UIView setAnimationDuration:1.0];
-            self.promotiontableView.frame = CGRectMake(0, 60, self.promotiontableView.frame.size.width, self.promotiontableView.frame.size.height);
-            [UIView commitAnimations];
-            [self performSelector:@selector(resizeTable) withObject:nil afterDelay:2];
-            
-            [self startPullToRefresh];
-            
-        } else {
-            
-            [UIView beginAnimations:nil context:NULL];
-            [UIView setAnimationDuration:1.0];
-            self.catalogtableView.frame = CGRectMake(0, 60, self.catalogtableView.frame.size.width, self.catalogtableView.frame.size.height);
-            [UIView commitAnimations];
-            [self performSelector:@selector(resizeTable) withObject:nil afterDelay:2];
-            
-            [self startPullToRefresh];
-            
-        }
-
-    }
-}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
@@ -636,41 +540,19 @@ NSTimer *timmer;
             if ([self.checksegmented isEqualToString:@"0"]) {
                 
                 if ([self.checkinternet isEqualToString:@"connect"]) {
-                    [self.ThaweeyontApi getPromotion:@"NO" link:self.paging];
+                    [self.Api getPromotion:@"NO" link:self.paging];
                 }
                 
             } else {
                 
                 if ([self.checkinternet isEqualToString:@"connect"]) {
-                    [self.ThaweeyontApi getCatalog:@"NO" link:self.paging];
+                    [self.Api getCatalog:@"NO" link:self.paging];
                 }
                 
             }
             
         }
     }
-}
-
-- (void)resizeTable {
-    
-    if ([self.checksegmented isEqualToString:@"0"]) {
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.2];
-        self.promotiontableView.frame = CGRectMake(0, 0, self.promotiontableView.frame.size.width, self.promotiontableView.frame.size.height);
-        [UIView commitAnimations];
-        
-    } else {
-        
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.2];
-        self.catalogtableView.frame = CGRectMake(0, 0, self.catalogtableView.frame.size.width, self.catalogtableView.frame.size.height);
-        [UIView commitAnimations];
-        
-    }
-    
-    [self stopPullToRefresh];
-    
 }
 
 //full image
@@ -686,17 +568,23 @@ NSTimer *timmer;
 
 - (void)PFPromotionDetailViewControllerBack {
     [self.delegate ShowTabbar];
-    [self reloadData:YES];
+//    [self.promotiontableView reloadData];
+//    [self.catalogtableView reloadData];
+    [self.tableView reloadData];
 }
 
 - (void)PFCatalogDetailViewControllerBack {
     [self.delegate ShowTabbar];
-    [self reloadData:YES];
+//    [self.promotiontableView reloadData];
+//    [self.catalogtableView reloadData];
+    [self.tableView reloadData];
 }
 
 - (void)PFDetailFoldertypeViewControllerBack {
     [self.delegate ShowTabbar];
-    [self reloadData:YES];
+//    [self.promotiontableView reloadData];
+//    [self.catalogtableView reloadData];
+    [self.tableView reloadData];
 }
 
 @end

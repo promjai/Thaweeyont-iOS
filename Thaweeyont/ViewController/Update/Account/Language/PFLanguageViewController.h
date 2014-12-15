@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 @protocol PFLanguageViewControllerDelegate <NSObject>
 
@@ -20,7 +20,7 @@
 @interface PFLanguageViewController : UIViewController
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 

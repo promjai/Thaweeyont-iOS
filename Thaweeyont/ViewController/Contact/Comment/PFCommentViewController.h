@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 @protocol PFCommentViewControllerDelegate <NSObject>
 
@@ -19,7 +19,7 @@
 @interface PFCommentViewController : UIViewController
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 
 @property (strong, nonatomic) IBOutlet UITextView *comment;
 

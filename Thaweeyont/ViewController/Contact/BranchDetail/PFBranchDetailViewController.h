@@ -13,7 +13,7 @@
 #import "PFMapView.h"
 #import "CMMapLauncher.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFBranchesCell.h"
 #import "PFMapViewController.h"
@@ -29,7 +29,7 @@
 @interface PFBranchDetailViewController : UIViewController <MKMapViewDelegate,CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UIActionSheetDelegate>
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 @property (strong, nonatomic) NSDictionary *obj;
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;

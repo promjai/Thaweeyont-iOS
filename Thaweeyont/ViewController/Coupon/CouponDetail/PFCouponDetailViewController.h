@@ -10,7 +10,7 @@
 #import "DLImageLoader.h"
 #import "UILabel+UILabelDynamicHeight.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFLoginViewController.h"
 
@@ -24,7 +24,7 @@
 @interface PFCouponDetailViewController : UIViewController
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 @property (strong, nonatomic) NSMutableArray *arrObj;
 @property (strong, nonatomic) NSDictionary *obj;
 

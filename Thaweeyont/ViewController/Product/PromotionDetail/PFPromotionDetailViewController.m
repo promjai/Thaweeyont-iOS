@@ -33,7 +33,6 @@
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_share"] style:UIBarButtonItemStyleDone target:self action:@selector(share)];
     self.navigationItem.rightBarButtonItem = rightButton;
     
-    
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fullimage:)];
     [self.thumbnails addGestureRecognizer:singleTap];
     [self.thumbnails setMultipleTouchEnabled:YES];

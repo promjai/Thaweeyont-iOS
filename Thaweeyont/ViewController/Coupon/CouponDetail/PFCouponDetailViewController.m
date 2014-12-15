@@ -33,10 +33,10 @@ NSTimer *timer;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.redeemTxt.text = @"Redeem";
         self.usedTxt.text = @"Used";
     } else {
@@ -134,7 +134,7 @@ NSTimer *timer;
             
         } else if ([[self.obj objectForKey:@"used_status"] isEqualToString:@"countdown"]) {
             
-            [self.ThaweeyontApi getCouponRequest:[self.obj objectForKey:@"id"]];
+            [self.Api getCouponRequest:[self.obj objectForKey:@"id"]];
             
         } else if ([[self.obj objectForKey:@"used_status"] isEqualToString:@"timeout"]) {
             
@@ -167,7 +167,7 @@ NSTimer *timer;
 }
 
 - (IBAction)redeemTapped:(id)sender {
-    if ([self.ThaweeyontApi checkLogin] == 0){
+    if ([self.Api checkLogin] == 0){
         
         self.loginView = [PFLoginViewController alloc];
         self.loginView.delegate = self;
@@ -193,12 +193,12 @@ NSTimer *timer;
         [self.redeemView removeFromSuperview];
         self.tableView.tableFooterView = self.codeView;
         
-        [self.ThaweeyontApi getCouponRequest:[self.obj objectForKey:@"id"]];
+        [self.Api getCouponRequest:[self.obj objectForKey:@"id"]];
         
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender getCouponRequestResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getCouponRequestResponse:(NSDictionary *)response {
     NSLog(@"%@",response);
     
     if ([[response objectForKey:@"expire"] intValue] == 0) {
@@ -257,7 +257,7 @@ NSTimer *timer;
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender getCouponRequestErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getCouponRequestErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 

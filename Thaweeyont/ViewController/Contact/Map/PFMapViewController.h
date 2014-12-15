@@ -10,7 +10,7 @@
 #import "PFMapView.h"
 #import "CMMapLauncher.h"
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFBranchDetailViewController.h"
 
@@ -24,7 +24,7 @@
 @interface PFMapViewController : UIViewController <MKMapViewDelegate,CLLocationManagerDelegate>
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 @property (strong, nonatomic) NSDictionary *obj;
 
 @property (strong, nonatomic) IBOutlet PFMapView *mapView;

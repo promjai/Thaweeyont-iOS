@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
 #import "PFBranchTelCell.h"
 
@@ -21,7 +21,7 @@
 @interface PFBranchTelephoneViewController : UIViewController
 
 @property (assign, nonatomic) id delegate;
-@property (strong, nonatomic) PFThaweeyontApi *ThaweeyontApi;
+@property (strong, nonatomic) PFApi *Api;
 @property (strong, nonatomic) NSMutableArray *arrObj;
 @property (strong, nonatomic) NSDictionary *obj;
 

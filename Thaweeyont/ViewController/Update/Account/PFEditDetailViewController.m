@@ -28,11 +28,11 @@
 {
     [super viewDidLoad];
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
     if ([self.checkstatus isEqualToString:@"displayname"]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             self.navigationItem.title = @"Display Name";
             [self.displayname setPlaceholder:@"Display Name"];
             [self.displayname_bt setTitle:@"Save" forState:UIControlStateNormal];
@@ -51,7 +51,7 @@
     }
     
     if ([self.checkstatus isEqualToString:@"password"]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             self.navigationItem.title = @"Password";
             [self.password setPlaceholder:@"Current Password"];
             [self.newpassword setPlaceholder:@"New Password"];
@@ -72,7 +72,7 @@
     }
     
     if ([self.checkstatus isEqualToString:@"email"]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             self.navigationItem.title = @"E-mail Address";
             [self.email setPlaceholder:@"E-mail"];
             [self.email_bt setTitle:@"Save" forState:UIControlStateNormal];
@@ -91,7 +91,7 @@
     }
     
     if ([self.checkstatus isEqualToString:@"website"]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             self.navigationItem.title = @"Website";
             [self.website setPlaceholder:@"Website"];
             [self.website_bt setTitle:@"Save" forState:UIControlStateNormal];
@@ -110,7 +110,7 @@
     }
     
     if ([self.checkstatus isEqualToString:@"phone"]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             self.navigationItem.title = @"Phone Number";
             [self.phone setPlaceholder:@"Phone Number"];
             [self.phone_bt setTitle:@"Save" forState:UIControlStateNormal];
@@ -129,7 +129,7 @@
     }
     
     if ([self.checkstatus isEqualToString:@"gender"]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             self.navigationItem.title = @"Gender";
             [self.male_bt setTitle:@"Male" forState:UIControlStateNormal];
             [self.female_bt setTitle:@"Female" forState:UIControlStateNormal];
@@ -158,7 +158,7 @@
     }
     
     if ([self.checkstatus isEqualToString:@"birthday"]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             self.navigationItem.title = @"Birthday";
             [self.birthday_bt setTitle:@"Save" forState:UIControlStateNormal];
         } else {
@@ -192,18 +192,18 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (void)PFThaweeyontApi:(id)sender getUserSettingResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender getUserSettingResponse:(NSDictionary *)response {
     //NSLog(@"settingUser %@",response);
 }
 
-- (void)PFThaweeyontApi:(id)sender getUserSettingErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender getUserSettingErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 
-- (void)PFThaweeyontApi:(id)sender changPasswordResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender changPasswordResponse:(NSDictionary *)response {
     NSLog(@"changPassword %@",response);
     if ([[[response objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"Main\\CTL\\Exception\\NeedParameterException"] || [[[response objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"Main\\CTL\\Exception\\UnAuthorizedException"]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                         message:[[response objectForKey:@"error"] objectForKey:@"message"]
                                        delegate:nil
@@ -217,7 +217,7 @@
                               otherButtonTitles:nil] show];
         }
     } else {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                         message:@"Save complete."
                                        delegate:self
@@ -233,7 +233,7 @@
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender changPasswordErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender changPasswordErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 
@@ -241,14 +241,14 @@
     
     [self.displayname resignFirstResponder];
     
-    [self.ThaweeyontApi updateSetting:self.displayname.text
+    [self.Api updateSetting:self.displayname.text
                           email:[self.obj objectForKey:@"email"]
                         website:[self.obj objectForKey:@"website"]
                             tel:[self.obj objectForKey:@"mobile"]
                          gender:[self.obj objectForKey:@"gender"]
                        birthday:[self.obj objectForKey:@"birth_date"]];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                     message:@"Save complete."
                                    delegate:self
@@ -265,7 +265,7 @@
 
 - (IBAction)passwordTapped:(id)sender{
     if (![self.newpassword.text isEqualToString:self.confirmpassword.text]) {
-        if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+        if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                         message:@"You must enter the same password twice in order to confirm it."
                                        delegate:nil
@@ -279,7 +279,7 @@
                               otherButtonTitles:nil] show];
         }
     } else {
-        [self.ThaweeyontApi changePassword:self.password.text new_password:self.newpassword.text];
+        [self.Api changePassword:self.password.text new_password:self.newpassword.text];
     }
 }
 
@@ -287,14 +287,14 @@
     
     [self.email resignFirstResponder];
     
-    [self.ThaweeyontApi updateSetting:[self.obj objectForKey:@"display_name"]
+    [self.Api updateSetting:[self.obj objectForKey:@"display_name"]
                           email:self.email.text
                         website:[self.obj objectForKey:@"website"]
                             tel:[self.obj objectForKey:@"mobile"]
                          gender:[self.obj objectForKey:@"gender"]
                        birthday:[self.obj objectForKey:@"birth_date"]];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                     message:@"Save complete."
                                    delegate:self
@@ -313,14 +313,14 @@
     
     [self.website resignFirstResponder];
     
-    [self.ThaweeyontApi updateSetting:[self.obj objectForKey:@"display_name"]
+    [self.Api updateSetting:[self.obj objectForKey:@"display_name"]
                           email:[self.obj objectForKey:@"email"]
                         website:self.website.text
                             tel:[self.obj objectForKey:@"mobile"]
                          gender:[self.obj objectForKey:@"gender"]
                        birthday:[self.obj objectForKey:@"birth_date"]];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                     message:@"Save complete."
                                    delegate:self
@@ -339,14 +339,14 @@
     
     [self.phone resignFirstResponder];
     
-    [self.ThaweeyontApi updateSetting:[self.obj objectForKey:@"display_name"]
+    [self.Api updateSetting:[self.obj objectForKey:@"display_name"]
                           email:[self.obj objectForKey:@"email"]
                         website:[self.obj objectForKey:@"website"]
                             tel:self.phone.text
                          gender:[self.obj objectForKey:@"gender"]
                        birthday:[self.obj objectForKey:@"birth_date"]];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                     message:@"Save complete."
                                    delegate:self
@@ -380,14 +380,14 @@
 }
 
 - (IBAction)genderTapped:(id)sender {
-        [self.ThaweeyontApi updateSetting:[self.obj objectForKey:@"display_name"]
+        [self.Api updateSetting:[self.obj objectForKey:@"display_name"]
                                 email:[self.obj objectForKey:@"email"]
                             website:[self.obj objectForKey:@"website"]
                                 tel:[self.obj objectForKey:@"mobile"]
                                 gender:self.checkgender
                             birthday:[self.obj objectForKey:@"birth_date"]];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                     message:@"Save complete."
                                    delegate:self
@@ -416,14 +416,14 @@
     int myInt = (int)interval;
     NSString *dateSave = [[NSString alloc] initWithFormat:@"%d",myInt];
     
-    [self.ThaweeyontApi updateSetting:[self.obj objectForKey:@"display_name"]
+    [self.Api updateSetting:[self.obj objectForKey:@"display_name"]
                           email:[self.obj objectForKey:@"email"]
                         website:[self.obj objectForKey:@"website"]
                             tel:[self.obj objectForKey:@"mobile"]
                          gender:[self.obj objectForKey:@"gender"]
                        birthday:dateSave];
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                     message:@"Save complete."
                                    delegate:self

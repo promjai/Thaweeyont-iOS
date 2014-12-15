@@ -32,10 +32,10 @@
     
     self.navigationItem.title = [self.obj objectForKey:@"branchName"];
     
-    self.ThaweeyontApi = [[PFThaweeyontApi alloc] init];
-    self.ThaweeyontApi.delegate = self;
+    self.Api = [[PFApi alloc] init];
+    self.Api.delegate = self;
     
-    if (![[self.ThaweeyontApi getLanguage] isEqualToString:@"TH"]) {
+    if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.contactLabel.text = @"หมายเลขภายใน";
         self.directionLabel.text = @"Get Direction";
     } else {

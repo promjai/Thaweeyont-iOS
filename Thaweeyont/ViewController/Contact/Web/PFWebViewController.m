@@ -48,17 +48,48 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+- (void)reload
+{
+    [self.webView reload];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [self.view addSubview:self.waitView];
+    [self startSpin];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.waitView removeFromSuperview];
+    self.webView.scrollView.minimumZoomScale = 1.0;
+    self.webView.scrollView.maximumZoomScale = 1.0;
+    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
+    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        // 'Back' button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        if([self.delegate respondsToSelector:@selector(PFWebViewControllerBack)]){
+            [self.delegate PFWebViewControllerBack];
+        }
+    }
+    
+}
+
 - (void)startSpin
 {
-    
     if (!self.popupProgressBar) {
         
         if(IS_WIDESCREEN) {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 274, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 269, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
             [self.waitView addSubview:self.popupProgressBar];
         } else {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(150, 230, 20, 20)];
+            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 225, 30, 30)];
             self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
             [self.waitView addSubview:self.popupProgressBar];
         }
@@ -92,10 +123,6 @@
     
 }
 
-/* Called when the animation either completes its active duration or
- * is removed from the object it is attached to (i.e. the layer). 'flag'
- * is true if the animation reached the end of its active duration
- * without being removed. */
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
 {
     if (finished)
@@ -104,38 +131,6 @@
         [self startSpin];
         
     }
-}
-
-- (void)reload
-{
-    [self.webView reload];
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView
-{
-    [self.view addSubview:self.waitView];
-    [self startSpin];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    [self.waitView removeFromSuperview];
-    self.webView.scrollView.minimumZoomScale = 1.0;
-    self.webView.scrollView.maximumZoomScale = 1.0;
-    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitUserSelect='none';"];
-    [self.webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.style.webkitTouchCallout='none';"];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
-        // 'Back' button was pressed.  We know this is true because self is no longer
-        // in the navigation stack.
-        if([self.delegate respondsToSelector:@selector(PFWebViewControllerBack)]){
-            [self.delegate PFWebViewControllerBack];
-        }
-    }
-    
 }
 
 @end

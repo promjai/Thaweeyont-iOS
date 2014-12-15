@@ -1,14 +1,14 @@
 //
-//  PFThaweeyontApi.m
-//  thaweeyont
+//  PFApi.m
+//  PFApi
 //
 //  Created by Promjai on 10/14/2557 BE.
 //  Copyright (c) 2557 Platwo fusion. All rights reserved.
 //
 
-#import "PFThaweeyontApi.h"
+#import "PFApi.h"
 
-@implementation PFThaweeyontApi
+@implementation PFApi
 
 - (id) init
 {
@@ -81,9 +81,9 @@
     self.urlStr = [[NSString alloc] initWithFormat:@"%@register",API_URL];
     NSDictionary *parameters = @{@"username":username , @"password":password , @"email":email ,@"birth_date":birth_date , @"gender":gender};
     [self.manager POST:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self registerWithUsernameResponse:responseObject];
+        [self.delegate PFApi:self registerWithUsernameResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self registerWithUsernameErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self registerWithUsernameErrorResponse:[error localizedDescription]];
     }];
 
 }
@@ -106,9 +106,9 @@
     }
     
     [self.manager POST:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self loginWithFacebookTokenResponse:responseObject];
+        [self.delegate PFApi:self loginWithFacebookTokenResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self loginWithFacebookTokenErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self loginWithFacebookTokenErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -121,9 +121,9 @@
     NSDictionary *parameters = @{@"username":username , @"password":password , @"ios_device_token[key]":[self.userDefaults objectForKey:@"deviceToken"] , @"ios_device_token[type]":@"product"};
     
     [self.manager POST:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self loginWithUsernameResponse:responseObject];
+        [self.delegate PFApi:self loginWithUsernameResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self loginWithUsernameErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self loginWithUsernameErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -139,18 +139,18 @@
 - (void)me {
     self.urlStr = [[NSString alloc] initWithFormat:@"%@user/%@",API_URL,[self getUserId]];
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self meResponse:responseObject];
+        [self.delegate PFApi:self meResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self meErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self meErrorResponse:[error localizedDescription]];
     }];
 }
 
 - (void)getUserSetting {
     self.urlStr = [[NSString alloc] initWithFormat:@"%@user/setting/%@",API_URL,[self getUserId]];
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getUserSettingResponse:responseObject];
+        [self.delegate PFApi:self getUserSettingResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getUserSettingErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getUserSettingErrorResponse:[error localizedDescription]];
     }];
 }
 
@@ -161,9 +161,9 @@
     self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
     [self.manager.requestSerializer setValue:nil forHTTPHeaderField:@"X-Auth-Token"];
     [self.manager PUT:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self meResponse:responseObject];
+        [self.delegate PFApi:self meResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self meErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self meErrorResponse:[error localizedDescription]];
     }];
 }
 
@@ -174,9 +174,9 @@
     self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
     [self.manager.requestSerializer setValue:nil forHTTPHeaderField:@"X-Auth-Token"];
     [self.manager PUT:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getUserSettingResponse:responseObject];
+        [self.delegate PFApi:self getUserSettingResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getUserSettingErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getUserSettingErrorResponse:[error localizedDescription]];
     }];
 }
 
@@ -187,9 +187,9 @@
     self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
     [self.manager.requestSerializer setValue:nil forHTTPHeaderField:@"X-Auth-Token"];
     [self.manager PUT:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self changPasswordResponse:responseObject];
+        [self.delegate PFApi:self changPasswordResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self changPasswordErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self changPasswordErrorResponse:[error localizedDescription]];
     }];
 }
 
@@ -203,9 +203,9 @@
     self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
     [self.manager.requestSerializer setValue:nil forHTTPHeaderField:@"X-Auth-Token"];
     [self.manager PUT:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getUserSettingResponse:responseObject];
+        [self.delegate PFApi:self getUserSettingResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getUserSettingErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getUserSettingErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -220,9 +220,9 @@
     self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
     [self.manager.requestSerializer setValue:nil forHTTPHeaderField:@"X-Auth-Token"];
     [self.manager PUT:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getUserSettingResponse:responseObject];
+        [self.delegate PFApi:self getUserSettingResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getUserSettingErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getUserSettingErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -237,9 +237,9 @@
     }
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getFeedResponse:responseObject];
+        [self.delegate PFApi:self getFeedResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getFeedErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getFeedErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -249,9 +249,9 @@
     self.urlStr = [[NSString alloc] initWithFormat:@"%@feed/%@",API_URL,news_id];
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getFeedByIdResponse:responseObject];
+        [self.delegate PFApi:self getFeedByIdResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getFeedByIdErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getFeedByIdErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -261,9 +261,9 @@
     self.urlStr = [[NSString alloc] initWithFormat:@"%@message/%@",API_URL,message_id];
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getMessageByIdResponse:responseObject];
+        [self.delegate PFApi:self getMessageByIdResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getMessageByIdErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getMessageByIdErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -282,9 +282,9 @@
     self.manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [self.manager.requestSerializer setValue:nil forHTTPHeaderField:@"X-Auth-Token"];
     [self.manager GET:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getNotificationResponse:responseObject];
+        [self.delegate PFApi:self getNotificationResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getNotificationErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getNotificationErrorResponse:[error localizedDescription]];
     }];
 
 }
@@ -303,9 +303,9 @@
         NSDictionary *parameters = @{@"access_token":[self getAccessToken]};
         
         [self.manager  GET:strUrl parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.delegate PFThaweeyontApi:self checkBadgeResponse:responseObject];
+            [self.delegate PFApi:self checkBadgeResponse:responseObject];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.delegate PFThaweeyontApi:self checkBadgeErrorResponse:[error localizedDescription]];
+            [self.delegate PFApi:self checkBadgeErrorResponse:[error localizedDescription]];
         }];
     }
     
@@ -335,9 +335,9 @@
     }
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getPromotionResponse:responseObject];
+        [self.delegate PFApi:self getPromotionResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getPromotionErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getPromotionErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -346,9 +346,9 @@
 
     self.urlStr = [[NSString alloc] initWithFormat:@"%@promotion/%@",API_URL,promotion_id];
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getPromotionByIdResponse:responseObject];
+        [self.delegate PFApi:self getPromotionByIdResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getPromotionByIdErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getPromotionByIdErrorResponse:[error localizedDescription]];
     }];
 
 }
@@ -363,9 +363,9 @@
     }
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getCatalogResponse:responseObject];
+        [self.delegate PFApi:self getCatalogResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getCatalogErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getCatalogErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -375,9 +375,9 @@
     self.urlStr = [[NSString alloc] initWithFormat:@"%@service/%@/picture",API_URL,catalog_id];
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getCatalogByIdResponse:responseObject];
+        [self.delegate PFApi:self getCatalogByIdResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getCatalogByIdErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getCatalogByIdErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -386,9 +386,9 @@
     
     self.urlStr = [[NSString alloc] initWithFormat:@"%@",url];
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getFolderTypeByURLResponse:responseObject];
+        [self.delegate PFApi:self getFolderTypeByURLResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getFolderTypeByURLErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getFolderTypeByURLErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -407,17 +407,17 @@
         NSDictionary *parameters = @{@"access_token":[self getAccessToken]};
         
         [self.manager GET:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.delegate PFThaweeyontApi:self getCouponResponse:responseObject];
+            [self.delegate PFApi:self getCouponResponse:responseObject];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.delegate PFThaweeyontApi:self getCouponErrorResponse:[error localizedDescription]];
+            [self.delegate PFApi:self getCouponErrorResponse:[error localizedDescription]];
         }];
     
     } else {
         
         [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.delegate PFThaweeyontApi:self getCouponResponse:responseObject];
+            [self.delegate PFApi:self getCouponResponse:responseObject];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.delegate PFThaweeyontApi:self getCouponErrorResponse:[error localizedDescription]];
+            [self.delegate PFApi:self getCouponErrorResponse:[error localizedDescription]];
         }];
     
     }
@@ -433,17 +433,17 @@
         NSDictionary *parameters = @{@"access_token":[self getAccessToken]};
         
         [self.manager GET:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.delegate PFThaweeyontApi:self getCouponByIdResponse:responseObject];
+            [self.delegate PFApi:self getCouponByIdResponse:responseObject];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.delegate PFThaweeyontApi:self getCouponByIdErrorResponse:[error localizedDescription]];
+            [self.delegate PFApi:self getCouponByIdErrorResponse:[error localizedDescription]];
         }];
         
     } else {
         
         [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            [self.delegate PFThaweeyontApi:self getCouponByIdResponse:responseObject];
+            [self.delegate PFApi:self getCouponByIdResponse:responseObject];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            [self.delegate PFThaweeyontApi:self getCouponByIdErrorResponse:[error localizedDescription]];
+            [self.delegate PFApi:self getCouponByIdErrorResponse:[error localizedDescription]];
         }];
         
     }
@@ -457,9 +457,9 @@
     NSDictionary *parameters = @{@"access_token":[self getAccessToken]};
     
     [self.manager POST:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getCouponRequestResponse:responseObject];
+        [self.delegate PFApi:self getCouponRequestResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getCouponRequestErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getCouponRequestErrorResponse:[error localizedDescription]];
     }];
     
 }
@@ -470,9 +470,9 @@
     self.urlStr = [[NSString alloc] initWithFormat:@"%@contact",API_URL];
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getContactResponse:responseObject];
+        [self.delegate PFApi:self getContactResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getContactErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getContactErrorResponse:[error localizedDescription]];
     }];
 }
 
@@ -482,9 +482,9 @@
     
     NSDictionary *parameters = @{ @"message":comment , @"access_token":[self getAccessToken] };
     [self.manager POST:self.urlStr parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self sendCommentResponse:responseObject];
+        [self.delegate PFApi:self sendCommentResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self sendCommentErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self sendCommentErrorResponse:[error localizedDescription]];
     }];
 }
 
@@ -493,9 +493,9 @@
     self.urlStr = [[NSString alloc] initWithFormat:@"%@contact/branches",API_URL];
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getContactBranchesResponse:responseObject];
+        [self.delegate PFApi:self getContactBranchesResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getContactBranchesErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getContactBranchesErrorResponse:[error localizedDescription]];
     }];
 }
 
@@ -504,9 +504,9 @@
     self.urlStr = [[NSString alloc] initWithFormat:@"%@contact/branches/%@/tel",API_URL,branch_id];
     
     [self.manager GET:self.urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self.delegate PFThaweeyontApi:self getBranchTelephoneResponse:responseObject];
+        [self.delegate PFApi:self getBranchTelephoneResponse:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.delegate PFThaweeyontApi:self getBranchTelephoneErrorResponse:[error localizedDescription]];
+        [self.delegate PFApi:self getBranchTelephoneErrorResponse:[error localizedDescription]];
     }];
 
 }
