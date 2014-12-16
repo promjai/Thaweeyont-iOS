@@ -41,7 +41,7 @@
     self.thumbnails.layer.masksToBounds = YES;
     self.thumbnails.contentMode = UIViewContentModeScaleAspectFill;
     
-    NSString *urlimg = [[NSString alloc] initWithFormat:@"%@%@",[[self.obj objectForKey:@"thumb"] objectForKey:@"url"],@"?width=640&height=420"];
+    NSString *urlimg = [[NSString alloc] initWithFormat:@"%@",[[self.obj objectForKey:@"thumb"] objectForKey:@"url"]];
     
     NSString *getheight = [[self.obj objectForKey:@"thumb"] objectForKey:@"height"];
     int height = [getheight intValue];
