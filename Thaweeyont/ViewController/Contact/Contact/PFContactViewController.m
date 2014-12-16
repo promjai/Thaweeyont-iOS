@@ -484,7 +484,7 @@ NSTimer *timmer;
         MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
         mc.mailComposeDelegate = self;
         
-        [mc.navigationBar setTintColor:[UIColor redColor]];
+        [mc.navigationBar setTintColor:[UIColor whiteColor]];
         [mc setSubject:emailTitle];
         [mc setMessageBody:messageBody isHTML:NO];
         [mc setToRecipients:toRecipents];

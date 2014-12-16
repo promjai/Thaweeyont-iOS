@@ -137,11 +137,10 @@ NSString *close_bt;
 
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
 {
-    if (finished)
-    {
-        
+    if (finished) {
         [self startSpin];
-        
+    } else {
+        [self startSpin];
     }
 }
 
@@ -383,8 +382,6 @@ NSString *close_bt;
 
 - (void)useCameraRoll
 {
-    [self.view addSubview:self.waitView];
-    
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:237.0f/255.0f green:28.0f/255.0f blue:36.0f/255.0f alpha:1.0f]];
     
     [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
@@ -444,6 +441,8 @@ NSString *close_bt;
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
     NSString *base64String = [self base64forData:imageData];
     [self.Api userPictureUpload:base64String];
+    
+    [self.view addSubview:self.waitView];
 
     [picker dismissViewControllerAnimated:YES completion:^{
         self.thumUser.image = image;
