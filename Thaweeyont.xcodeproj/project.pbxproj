@@ -164,6 +164,8 @@
 		81C96B911A3F2AED0072B8C4 /* PFApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 81C96B901A3F2AED0072B8C4 /* PFApi.m */; };
 		81C96B951A3F2C8B0072B8C4 /* pin_map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C96B931A3F2C8B0072B8C4 /* pin_map@2x.png */; };
 		81C96B961A3F2C8B0072B8C4 /* pin_map@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C96B941A3F2C8B0072B8C4 /* pin_map@3x.png */; };
+		81CB704D1A3FE10B006422C6 /* TabBarItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CB704A1A3FE10B006422C6 /* TabBarItemButton.m */; };
+		81CB704E1A3FE10B006422C6 /* TabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81CB704C1A3FE10B006422C6 /* TabBarViewController.m */; };
 		81CCCA9B1A17343300A9F44C /* PFUpdateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81CCCA9A1A17343300A9F44C /* PFUpdateViewController.xib */; };
 		81CCCA9D1A17347F00A9F44C /* PFUpdateDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81CCCA9C1A17347F00A9F44C /* PFUpdateDetailViewController.xib */; };
 		81CCCA9F1A1734AC00A9F44C /* PFLanguageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81CCCA9E1A1734AC00A9F44C /* PFLanguageViewController.xib */; };
@@ -314,10 +316,6 @@
 		81F80D6B19EE173F0051CAC1 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F80D1619EE173E0051CAC1 /* UIWebView+AFNetworking.m */; };
 		81F80D6C19EE173F0051CAC1 /* default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 81F80D1819EE173E0051CAC1 /* default.jpg */; };
 		81F80D7D19EE173F0051CAC1 /* icon_share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81F80D2C19EE173E0051CAC1 /* icon_share@2x.png */; };
-		81F80D9019EE173F0051CAC1 /* notificationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81F80D4319EE173F0051CAC1 /* notificationView.xib */; };
-		81F80D9119EE173F0051CAC1 /* PFCustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F80D4519EE173F0051CAC1 /* PFCustomBadge.m */; };
-		81F80D9219EE173F0051CAC1 /* PFTabBarItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F80D4719EE173F0051CAC1 /* PFTabBarItemButton.m */; };
-		81F80D9319EE173F0051CAC1 /* PFTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F80D4919EE173F0051CAC1 /* PFTabBarViewController.m */; };
 		81F90BFA19FF393500FD5640 /* bt_create_account@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81F90BF019FF393500FD5640 /* bt_create_account@2x.png */; };
 		81F90BFB19FF393500FD5640 /* bt_create_account@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81F90BF119FF393500FD5640 /* bt_create_account@3x.png */; };
 		81F90BFC19FF393500FD5640 /* bt_login_fb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81F90BF219FF393500FD5640 /* bt_login_fb@2x.png */; };
@@ -523,6 +521,10 @@
 		81C96B901A3F2AED0072B8C4 /* PFApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFApi.m; sourceTree = "<group>"; };
 		81C96B931A3F2C8B0072B8C4 /* pin_map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_map@2x.png"; sourceTree = "<group>"; };
 		81C96B941A3F2C8B0072B8C4 /* pin_map@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin_map@3x.png"; sourceTree = "<group>"; };
+		81CB70491A3FE10B006422C6 /* TabBarItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarItemButton.h; sourceTree = "<group>"; };
+		81CB704A1A3FE10B006422C6 /* TabBarItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarItemButton.m; sourceTree = "<group>"; };
+		81CB704B1A3FE10B006422C6 /* TabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarViewController.h; sourceTree = "<group>"; };
+		81CB704C1A3FE10B006422C6 /* TabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarViewController.m; sourceTree = "<group>"; };
 		81CCCA9A1A17343300A9F44C /* PFUpdateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFUpdateViewController.xib; sourceTree = "<group>"; };
 		81CCCA9C1A17347F00A9F44C /* PFUpdateDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFUpdateDetailViewController.xib; sourceTree = "<group>"; };
 		81CCCA9E1A1734AC00A9F44C /* PFLanguageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFLanguageViewController.xib; sourceTree = "<group>"; };
@@ -760,13 +762,6 @@
 		81F80D1619EE173E0051CAC1 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		81F80D1819EE173E0051CAC1 /* default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default.jpg; sourceTree = "<group>"; };
 		81F80D2C19EE173E0051CAC1 /* icon_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_share@2x.png"; sourceTree = "<group>"; };
-		81F80D4319EE173F0051CAC1 /* notificationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = notificationView.xib; sourceTree = "<group>"; };
-		81F80D4419EE173F0051CAC1 /* PFCustomBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFCustomBadge.h; sourceTree = "<group>"; };
-		81F80D4519EE173F0051CAC1 /* PFCustomBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFCustomBadge.m; sourceTree = "<group>"; };
-		81F80D4619EE173F0051CAC1 /* PFTabBarItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFTabBarItemButton.h; sourceTree = "<group>"; };
-		81F80D4719EE173F0051CAC1 /* PFTabBarItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFTabBarItemButton.m; sourceTree = "<group>"; };
-		81F80D4819EE173F0051CAC1 /* PFTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFTabBarViewController.h; sourceTree = "<group>"; };
-		81F80D4919EE173F0051CAC1 /* PFTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFTabBarViewController.m; sourceTree = "<group>"; };
 		81F90BF019FF393500FD5640 /* bt_create_account@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_create_account@2x.png"; sourceTree = "<group>"; };
 		81F90BF119FF393500FD5640 /* bt_create_account@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_create_account@3x.png"; sourceTree = "<group>"; };
 		81F90BF219FF393500FD5640 /* bt_login_fb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bt_login_fb@2x.png"; sourceTree = "<group>"; };
@@ -1812,13 +1807,10 @@
 		81F80D4219EE173F0051CAC1 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				81F80D4319EE173F0051CAC1 /* notificationView.xib */,
-				81F80D4419EE173F0051CAC1 /* PFCustomBadge.h */,
-				81F80D4519EE173F0051CAC1 /* PFCustomBadge.m */,
-				81F80D4619EE173F0051CAC1 /* PFTabBarItemButton.h */,
-				81F80D4719EE173F0051CAC1 /* PFTabBarItemButton.m */,
-				81F80D4819EE173F0051CAC1 /* PFTabBarViewController.h */,
-				81F80D4919EE173F0051CAC1 /* PFTabBarViewController.m */,
+				81CB70491A3FE10B006422C6 /* TabBarItemButton.h */,
+				81CB704A1A3FE10B006422C6 /* TabBarItemButton.m */,
+				81CB704B1A3FE10B006422C6 /* TabBarViewController.h */,
+				81CB704C1A3FE10B006422C6 /* TabBarViewController.m */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -2031,7 +2023,6 @@
 				81F3E2841A270B1A005C85EC /* icon_share@2x.png in Resources */,
 				81000AD21A00C7590077F671 /* unchecked.png in Resources */,
 				81E9717B19FE2B8400486272 /* logo@3x.png in Resources */,
-				81F80D9019EE173F0051CAC1 /* notificationView.xib in Resources */,
 				81000AD01A00C7590077F671 /* ic_website@2x.png in Resources */,
 				81000ACD1A00C7590077F671 /* ic_lock@2x.png in Resources */,
 				81F3E28C1A270B1A005C85EC /* NotBoxReadedIp5@2x.png in Resources */,
@@ -2188,7 +2179,6 @@
 				81F80D6919EE173F0051CAC1 /* UIImageView+AFNetworking.m in Sources */,
 				81ED400A19FA0CC6003D3497 /* PFBranchesCell.m in Sources */,
 				81F51AFC19FA49080069AE94 /* PSTCollectionViewUpdateItem.m in Sources */,
-				81F80D9119EE173F0051CAC1 /* PFCustomBadge.m in Sources */,
 				81F3B9B41A1066F10044774C /* PFMapAllViewController.m in Sources */,
 				81F51AF419FA49080069AE94 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				812E1F3C1A09CAEF00CF682F /* PFCouponDetailViewController.m in Sources */,
@@ -2203,6 +2193,7 @@
 				81F51AFD19FA49080069AE94 /* PSTGridLayoutInfo.m in Sources */,
 				81F51B0919FA49080069AE94 /* SDWebImagePrefetcher.m in Sources */,
 				81F51AF219FA49080069AE94 /* MBProgressHUD.m in Sources */,
+				81CB704D1A3FE10B006422C6 /* TabBarItemButton.m in Sources */,
 				815563A31A257DEC007538F3 /* PFNotificationCell.m in Sources */,
 				81F80D6119EE173F0051CAC1 /* AFSecurityPolicy.m in Sources */,
 				81590C181A0A07FD00D1B8E0 /* PFEditDetailViewController.m in Sources */,
@@ -2274,16 +2265,15 @@
 				81F51AF819FA49080069AE94 /* PSTCollectionViewData.m in Sources */,
 				81F80D6419EE173F0051CAC1 /* AFURLResponseSerialization.m in Sources */,
 				81F51AEA19FA49080069AE94 /* MWGridCell.m in Sources */,
-				81F80D9219EE173F0051CAC1 /* PFTabBarItemButton.m in Sources */,
 				81F51AF019FA49080069AE94 /* MWZoomingScrollView.m in Sources */,
 				812852791A07CC3400328342 /* PFEditViewController.m in Sources */,
 				81590BA81A09ED1C00D1B8E0 /* PFPromotionDetailViewController.m in Sources */,
 				81F51B0A19FA49080069AE94 /* UIButton+WebCache.m in Sources */,
 				81F80D6519EE173F0051CAC1 /* AFURLSessionManager.m in Sources */,
-				81F80D9319EE173F0051CAC1 /* PFTabBarViewController.m in Sources */,
 				81F51B0319FA49080069AE94 /* SDImageCache.m in Sources */,
 				81F51B0019FA49080069AE94 /* PSTGridLayoutSection.m in Sources */,
 				81E9711B19FE1AD000486272 /* PFUpdateCell.m in Sources */,
+				81CB704E1A3FE10B006422C6 /* TabBarViewController.m in Sources */,
 				81F51A7919FA395A0069AE94 /* PagedImageScrollView.m in Sources */,
 				81C4A2701A29C579002EDF9C /* PFMessageViewController.m in Sources */,
 				8193F04A1A08BC81002B95B9 /* PFDetailFoldertype1ViewController.m in Sources */,

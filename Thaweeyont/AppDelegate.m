@@ -49,7 +49,7 @@ BOOL newMedia;
         
     }
     
-    self.tabBarViewController = [[PFTabBarViewController alloc] initWithBackgroundImage:nil viewControllers:self.update,self.product,self.coupon,self.contact,nil];
+    self.tabBarViewController = [[TabBarViewController alloc] initWithBackgroundImage:nil viewControllers:self.update,self.product,self.coupon,self.contact,nil];
     
     self.update.delegate = self;
     self.product.delegate = self;
@@ -58,37 +58,37 @@ BOOL newMedia;
     
     if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
             
-        PFTabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
+        TabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
         [item0 setHighlightedImage:[UIImage imageNamed:@"en_update_on"]];
         [item0 setStanbyImage:[UIImage imageNamed:@"en_update_off"]];
         
-        PFTabBarItemButton *item1 = [self.tabBarViewController.itemButtons objectAtIndex:1];
+        TabBarItemButton *item1 = [self.tabBarViewController.itemButtons objectAtIndex:1];
         [item1 setHighlightedImage:[UIImage imageNamed:@"en_product_on"]];
         [item1 setStanbyImage:[UIImage imageNamed:@"en_product_off"]];
         
-        PFTabBarItemButton *item2 = [self.tabBarViewController.itemButtons objectAtIndex:2];
+        TabBarItemButton *item2 = [self.tabBarViewController.itemButtons objectAtIndex:2];
         [item2 setHighlightedImage:[UIImage imageNamed:@"en_coupon_on"]];
         [item2 setStanbyImage:[UIImage imageNamed:@"en_coupon_off"]];
         
-        PFTabBarItemButton *item3 = [self.tabBarViewController.itemButtons objectAtIndex:3];
+        TabBarItemButton *item3 = [self.tabBarViewController.itemButtons objectAtIndex:3];
         [item3 setHighlightedImage:[UIImage imageNamed:@"en_contact_on"]];
         [item3 setStanbyImage:[UIImage imageNamed:@"en_contact_off"]];
     
     } else {
      
-        PFTabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
+        TabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
         [item0 setHighlightedImage:[UIImage imageNamed:@"th_update_on"]];
         [item0 setStanbyImage:[UIImage imageNamed:@"th_update_off"]];
         
-        PFTabBarItemButton *item1 = [self.tabBarViewController.itemButtons objectAtIndex:1];
+        TabBarItemButton *item1 = [self.tabBarViewController.itemButtons objectAtIndex:1];
         [item1 setHighlightedImage:[UIImage imageNamed:@"th_product_on"]];
         [item1 setStanbyImage:[UIImage imageNamed:@"th_product_off"]];
         
-        PFTabBarItemButton *item2 = [self.tabBarViewController.itemButtons objectAtIndex:2];
+        TabBarItemButton *item2 = [self.tabBarViewController.itemButtons objectAtIndex:2];
         [item2 setHighlightedImage:[UIImage imageNamed:@"th_coupon_on"]];
         [item2 setStanbyImage:[UIImage imageNamed:@"th_coupon_off"]];
         
-        PFTabBarItemButton *item3 = [self.tabBarViewController.itemButtons objectAtIndex:3];
+        TabBarItemButton *item3 = [self.tabBarViewController.itemButtons objectAtIndex:3];
         [item3 setHighlightedImage:[UIImage imageNamed:@"th_contact_on"]];
         [item3 setStanbyImage:[UIImage imageNamed:@"th_contact_off"]];
      
@@ -231,7 +231,7 @@ BOOL newMedia;
         
     }
     
-    self.tabBarViewController = [[PFTabBarViewController alloc] initWithBackgroundImage:nil viewControllers:self.update,self.product,self.coupon,self.contact,nil];
+    self.tabBarViewController = [[TabBarViewController alloc] initWithBackgroundImage:nil viewControllers:self.update,self.product,self.coupon,self.contact,nil];
     
     self.update.delegate = self;
     self.product.delegate = self;
@@ -240,37 +240,37 @@ BOOL newMedia;
     
     if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         
-        PFTabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
+        TabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
         [item0 setHighlightedImage:[UIImage imageNamed:@"en_update_on"]];
         [item0 setStanbyImage:[UIImage imageNamed:@"en_update_off"]];
         
-        PFTabBarItemButton *item1 = [self.tabBarViewController.itemButtons objectAtIndex:1];
+        TabBarItemButton *item1 = [self.tabBarViewController.itemButtons objectAtIndex:1];
         [item1 setHighlightedImage:[UIImage imageNamed:@"en_product_on"]];
         [item1 setStanbyImage:[UIImage imageNamed:@"en_product_off"]];
         
-        PFTabBarItemButton *item2 = [self.tabBarViewController.itemButtons objectAtIndex:2];
+        TabBarItemButton *item2 = [self.tabBarViewController.itemButtons objectAtIndex:2];
         [item2 setHighlightedImage:[UIImage imageNamed:@"en_coupon_on"]];
         [item2 setStanbyImage:[UIImage imageNamed:@"en_coupon_off"]];
         
-        PFTabBarItemButton *item3 = [self.tabBarViewController.itemButtons objectAtIndex:3];
+        TabBarItemButton *item3 = [self.tabBarViewController.itemButtons objectAtIndex:3];
         [item3 setHighlightedImage:[UIImage imageNamed:@"en_contact_on"]];
         [item3 setStanbyImage:[UIImage imageNamed:@"en_contact_off"]];
         
     } else {
         
-        PFTabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
+        TabBarItemButton *item0 = [self.tabBarViewController.itemButtons objectAtIndex:0];
         [item0 setHighlightedImage:[UIImage imageNamed:@"th_update_on"]];
         [item0 setStanbyImage:[UIImage imageNamed:@"th_update_off"]];
         
-        PFTabBarItemButton *item1 = [self.tabBarViewController.itemButtons objectAtIndex:1];
+        TabBarItemButton *item1 = [self.tabBarViewController.itemButtons objectAtIndex:1];
         [item1 setHighlightedImage:[UIImage imageNamed:@"th_product_on"]];
         [item1 setStanbyImage:[UIImage imageNamed:@"th_product_off"]];
         
-        PFTabBarItemButton *item2 = [self.tabBarViewController.itemButtons objectAtIndex:2];
+        TabBarItemButton *item2 = [self.tabBarViewController.itemButtons objectAtIndex:2];
         [item2 setHighlightedImage:[UIImage imageNamed:@"th_coupon_on"]];
         [item2 setStanbyImage:[UIImage imageNamed:@"th_coupon_off"]];
         
-        PFTabBarItemButton *item3 = [self.tabBarViewController.itemButtons objectAtIndex:3];
+        TabBarItemButton *item3 = [self.tabBarViewController.itemButtons objectAtIndex:3];
         [item3 setHighlightedImage:[UIImage imageNamed:@"th_contact_on"]];
         [item3 setStanbyImage:[UIImage imageNamed:@"th_contact_off"]];
         

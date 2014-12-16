@@ -10,7 +10,7 @@
 
 #import "PFApi.h"
 
-#import "PFTabBarViewController.h"
+#import "TabBarViewController.h"
 
 #import "PFUpdateViewController.h"
 #import "PFProductViewController.h"
@@ -27,7 +27,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) PFApi *Api;
 
-@property (strong, nonatomic) PFTabBarViewController *tabBarViewController;
+@property (strong, nonatomic) TabBarViewController *tabBarViewController;
 
 @property (strong, nonatomic) PFUpdateViewController *update;
 @property (strong, nonatomic) PFProductViewController *product;
