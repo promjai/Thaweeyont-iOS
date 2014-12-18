@@ -115,6 +115,7 @@
 		81590C121A09F05E00D1B8E0 /* th_update_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81590BE21A09F05D00D1B8E0 /* th_update_on@3x.png */; };
 		81590C171A0A07FD00D1B8E0 /* PFEditDetailViewController_Wide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81590C131A0A07FD00D1B8E0 /* PFEditDetailViewController_Wide.xib */; };
 		81590C181A0A07FD00D1B8E0 /* PFEditDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81590C151A0A07FD00D1B8E0 /* PFEditDetailViewController.m */; };
+		8161D99A1A42BA080062DB4B /* icon_share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8161D9991A42BA080062DB4B /* icon_share@3x.png */; };
 		8193F0331A088606002B95B9 /* PFCatalogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8193F0311A088606002B95B9 /* PFCatalogDetailViewController.m */; };
 		8193F0341A088606002B95B9 /* PFCatalogDetailViewController_Wide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8193F0321A088606002B95B9 /* PFCatalogDetailViewController_Wide.xib */; };
 		8193F0381A088702002B95B9 /* ScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8193F0371A088702002B95B9 /* ScrollView.m */; };
@@ -457,6 +458,7 @@
 		81590C131A0A07FD00D1B8E0 /* PFEditDetailViewController_Wide.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFEditDetailViewController_Wide.xib; sourceTree = "<group>"; };
 		81590C141A0A07FD00D1B8E0 /* PFEditDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFEditDetailViewController.h; sourceTree = "<group>"; };
 		81590C151A0A07FD00D1B8E0 /* PFEditDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFEditDetailViewController.m; sourceTree = "<group>"; };
+		8161D9991A42BA080062DB4B /* icon_share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_share@3x.png"; sourceTree = "<group>"; };
 		8193F0301A088606002B95B9 /* PFCatalogDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PFCatalogDetailViewController.h; sourceTree = "<group>"; };
 		8193F0311A088606002B95B9 /* PFCatalogDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PFCatalogDetailViewController.m; sourceTree = "<group>"; };
 		8193F0321A088606002B95B9 /* PFCatalogDetailViewController_Wide.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PFCatalogDetailViewController_Wide.xib; sourceTree = "<group>"; };
@@ -1800,6 +1802,7 @@
 				81000A581A008F590077F671 /* ic_setting@2x.png */,
 				81000A591A008F590077F671 /* ic_setting@3x.png */,
 				81F80D2C19EE173E0051CAC1 /* icon_share@2x.png */,
+				8161D9991A42BA080062DB4B /* icon_share@3x.png */,
 			);
 			path = ImagesTab;
 			sourceTree = "<group>";
@@ -2058,6 +2061,7 @@
 				81000AC51A00C7590077F671 /* bt_setting@2x.png in Resources */,
 				81BCA25B19FB53B60046DD2B /* ic_facebook@2x.png in Resources */,
 				81F3E2821A270B1A005C85EC /* HeadCommentBoxIp5@2x.png in Resources */,
+				8161D99A1A42BA080062DB4B /* icon_share@3x.png in Resources */,
 				81000A601A0094FD0077F671 /* ic_close@2x.png in Resources */,
 				81ED3FDC19F9FF4C003D3497 /* chapter03.png in Resources */,
 				81590BED1A09F05E00D1B8E0 /* th_coupon_off.png in Resources */,
