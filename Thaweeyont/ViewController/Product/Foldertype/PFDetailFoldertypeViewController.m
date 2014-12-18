@@ -258,8 +258,6 @@ BOOL refreshDataFolder;
         
         if ([children_length isEqualToString:@"0"]) {
             
-            [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(reload:) userInfo:nil repeats:NO];
-            
             if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
                 [[[UIAlertView alloc] initWithTitle:@"ทวียนต์!"
                                             message:@"Coming soon."
@@ -290,11 +288,6 @@ BOOL refreshDataFolder;
         
     }
     
-}
-
--(void)reload:(NSTimer *)timer
-{
-    [self.tableView reloadData];
 }
 
 #pragma mark -
