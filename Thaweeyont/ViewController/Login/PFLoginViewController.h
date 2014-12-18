@@ -15,6 +15,7 @@
 @protocol PFLoginViewControllerDelegate <NSObject>
 
 - (void)PFAccountViewController:(id)sender;
+- (void)PFNotificationViewController:(id)sender;
 - (void)PFCommentViewController:(id)sender;
 - (void)PFCouponViewController:(id)sender;
 

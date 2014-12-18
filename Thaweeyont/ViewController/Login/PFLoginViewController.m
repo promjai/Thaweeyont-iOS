@@ -221,6 +221,10 @@ NSString *password;
         self.menu = @"";
         [self.delegate PFAccountViewController:self];
         
+    } else if ([self.menu isEqualToString:@"notify"]) {
+        self.menu = @"";
+        [self.delegate PFNotificationViewController:self];
+        
     } else if ([self.menu isEqualToString:@"comment"]) {
         self.menu = @"";
         [self.delegate PFCommentViewController:self];
@@ -286,9 +290,14 @@ NSString *password;
             self.menu = @"";
             [self.delegate PFAccountViewController:self];
             
+        } else if ([self.menu isEqualToString:@"notify"]) {
+            self.menu = @"";
+            [self.delegate PFNotificationViewController:self];
+            
         } else if ([self.menu isEqualToString:@"comment"]) {
             self.menu = @"";
             [self.delegate PFCommentViewController:self];
+            
         } else if ([self.menu isEqualToString:@"coupon"]) {
             self.menu = @"";
             [self.delegate PFCouponViewController:self];
