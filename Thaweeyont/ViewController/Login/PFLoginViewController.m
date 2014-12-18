@@ -207,7 +207,7 @@ NSString *password;
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender loginWithFacebookTokenResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender loginWithFacebookTokenResponse:(NSDictionary *)response {
     //NSLog(@"FacebookResponse %@",response);
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -236,7 +236,7 @@ NSString *password;
     }
     
 }
-- (void)PFThaweeyontApi:(id)sender LoginWithFacebookTokenErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender LoginWithFacebookTokenErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [[[UIAlertView alloc] initWithTitle:@"Login failed"
@@ -268,7 +268,7 @@ NSString *password;
     [self.view addSubview:self.scrollView];
 }
 
-- (void)PFThaweeyontApi:(id)sender loginWithUsernameResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender loginWithUsernameResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
     if ([[[response objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"Main\\CTL\\Exception\\NeedParameterException"] || [[[response objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"NotAuthorized"] || [[[response objectForKey:@"error"] objectForKey:@"type"] isEqualToString:@"Error"]) {
@@ -308,7 +308,7 @@ NSString *password;
     
 }
 
-- (void)PFThaweeyontApi:(id)sender loginWithUsernameErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender loginWithUsernameErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
     
     [[[UIAlertView alloc] initWithTitle:@"Login failed"
@@ -397,7 +397,7 @@ NSString *password;
     }
 }
 
-- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         self.genderRegisTextField.text = @"male";
     } else if (buttonIndex == 2) {
@@ -508,7 +508,7 @@ NSString *password;
 
 }
 
-- (void)PFThaweeyontApi:(id)sender registerWithUsernameResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender registerWithUsernameResponse:(NSDictionary *)response {
     NSLog(@"%@",response);
     
     if ([response objectForKey:@"error"] != nil ) {
@@ -525,7 +525,7 @@ NSString *password;
     }
 }
 
-- (void)PFThaweeyontApi:(id)sender registerWithUsernameErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender registerWithUsernameErrorResponse:(NSString *)errorResponse {
     NSLog(@"error%@",errorResponse);
     
     [[[UIAlertView alloc] initWithTitle:@"Signup failed"

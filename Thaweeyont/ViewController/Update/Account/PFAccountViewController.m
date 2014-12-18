@@ -238,11 +238,11 @@ NSString *removeBreckets;
     
 }
 
-- (void)PFThaweeyontApi:(id)sender settingNewsResponse:(NSDictionary *)response {
+- (void)PFApi:(id)sender settingNewsResponse:(NSDictionary *)response {
     NSLog(@"%@",response);
 }
 
-- (void)PFThaweeyontApi:(id)sender settingNewsErrorResponse:(NSString *)errorResponse {
+- (void)PFApi:(id)sender settingNewsErrorResponse:(NSString *)errorResponse {
     NSLog(@"%@",errorResponse);
 }
 
