@@ -193,7 +193,7 @@
 }
 
 - (void)PFApi:(id)sender getUserSettingResponse:(NSDictionary *)response {
-    //NSLog(@"settingUser %@",response);
+    NSLog(@"settingUser %@",response);
 }
 
 - (void)PFApi:(id)sender getUserSettingErrorResponse:(NSString *)errorResponse {
@@ -438,7 +438,7 @@
     }
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField  {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField  {
     [self.email resignFirstResponder];
     [self.website resignFirstResponder];
     [self.phone resignFirstResponder];

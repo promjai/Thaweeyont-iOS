@@ -31,7 +31,6 @@
 @property (strong, nonatomic) NSDictionary *objEdit;
 
 @property (strong, nonatomic) IBOutlet UIView *waitView;
-@property (strong, nonatomic) UIImageView *popupProgressBar;
 
 @property (strong, nonatomic) IBOutlet UINavigationController *navController;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;

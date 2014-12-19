@@ -36,7 +36,6 @@
 @property (strong, nonatomic) IBOutlet UINavigationItem *navItem;
 
 @property (strong, nonatomic) IBOutlet UIView *waitView;
-@property (strong, nonatomic) UIImageView *popupProgressBar;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) IBOutlet UIView *NoInternetView;

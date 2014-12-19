@@ -21,6 +21,5 @@
 @property NSString *url;
 
 @property (strong, nonatomic) IBOutlet UIView *waitView;
-@property (strong, nonatomic) UIImageView *popupProgressBar;
 
 @end

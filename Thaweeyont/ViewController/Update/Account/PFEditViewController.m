@@ -33,7 +33,6 @@ NSString *close_bt;
     [super viewDidLoad];
     
     [self.view addSubview:self.waitView];
-    [self startSpin];
     
     // Navbar setup
     [[self.navController navigationBar] setBarTintColor:[UIColor colorWithRed:237.0f/255.0f green:28.0f/255.0f blue:36.0f/255.0f alpha:1.0f]];
@@ -92,65 +91,13 @@ NSString *close_bt;
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (void)startSpin
-{
-    if (!self.popupProgressBar) {
-        
-        if(IS_WIDESCREEN) {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 269, 30, 30)];
-            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
-            [self.waitView addSubview:self.popupProgressBar];
-        } else {
-            self.popupProgressBar = [[UIImageView alloc] initWithFrame:CGRectMake(145, 225, 30, 30)];
-            self.popupProgressBar.image = [UIImage imageNamed:@"ic_loading"];
-            [self.waitView addSubview:self.popupProgressBar];
-        }
-        
-    }
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
-    CGRect frame = [self.popupProgressBar frame];
-    self.popupProgressBar.layer.anchorPoint = CGPointMake(0.5, 0.5);
-    self.popupProgressBar.layer.position = CGPointMake(frame.origin.x + 0.5 * frame.size.width, frame.origin.y + 0.5 * frame.size.height);
-    [CATransaction commit];
-    
-    [CATransaction begin];
-    [CATransaction setValue:(id)kCFBooleanFalse forKey:kCATransactionDisableActions];
-    [CATransaction setValue:[NSNumber numberWithFloat:1.0] forKey:kCATransactionAnimationDuration];
-    
-    CABasicAnimation *animation;
-    animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    animation.fromValue = [NSNumber numberWithFloat:0.0];
-    animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
-    animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
-    animation.delegate = self;
-    [self.popupProgressBar.layer addAnimation:animation forKey:@"rotationAnimation"];
-    
-    [CATransaction commit];
-}
-
-- (void)animationDidStart:(CAAnimation *)anim
-{
-    
-}
-
-- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)finished
-{
-    if (finished) {
-        [self startSpin];
-    } else {
-        [self startSpin];
-    }
-}
-
 -(void)close {
     [self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)PFApi:(id)sender meResponse:(NSDictionary *)response {
     self.objEdit = response;
-    //NSLog(@"Me %@",response);
+    NSLog(@"Me %@",response);
     
     [self.waitView removeFromSuperview];
     

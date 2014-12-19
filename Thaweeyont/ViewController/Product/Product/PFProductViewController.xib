@@ -10,7 +10,6 @@
                 <outlet property="navBar" destination="znE-1F-R8F" id="aE5-qU-7ax"/>
                 <outlet property="navController" destination="Z4v-0Q-4cS" id="4L1-Xz-Xec"/>
                 <outlet property="navItem" destination="PUx-s9-lhR" id="YaS-iy-zJv"/>
-                <outlet property="popupWaitView" destination="Wpc-2f-JQx" id="pVG-Hy-bMG"/>
                 <outlet property="segmented" destination="wJj-vl-Az4" id="Chb-vY-IWX"/>
                 <outlet property="tableView" destination="DWc-Od-c0R" id="tYp-qE-9Lb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -24,6 +23,12 @@
             <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wpc-2f-JQx">
                     <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="oij-xV-THF">
+                            <rect key="frame" x="142" y="157" width="37" height="37"/>
+                            <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </activityIndicatorView>
+                    </subviews>
                     <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
