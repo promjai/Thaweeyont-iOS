@@ -133,16 +133,10 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     
     MKPointAnnotation *selectedAnnotation = view.annotation;
-    self.lat = [[NSString alloc] initWithFormat:@"%f",selectedAnnotation.coordinate.latitude];
-    self.lng = [[NSString alloc] initWithFormat:@"%f",selectedAnnotation.coordinate.longitude];
     
     for (int i=0; i < [self.arrObj count]; i++) {
         
-        self.chklat = [[[[self.arrObj objectAtIndex:i] objectForKey:@"location"] objectForKey:@"lat"] substringToIndex:9];
-        self.chklng = [[[[self.arrObj objectAtIndex:i] objectForKey:@"location"] objectForKey:@"lng"] substringToIndex:9];
-
-        
-        if ([self.chklat isEqualToString:self.lat] && [self.chklng isEqualToString:self.lng]) {
+        if ([selectedAnnotation.title isEqualToString:[[self.arrObj objectAtIndex:i] objectForKey:@"branchName"]]) {
             
             self.obj = [self.arrObj objectAtIndex:i];
             

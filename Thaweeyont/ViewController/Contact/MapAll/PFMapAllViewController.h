@@ -34,10 +34,4 @@
 
 @property (strong, nonatomic) NSString *locationSum;
 
-@property (strong, nonatomic) NSString *lat;
-@property (strong, nonatomic) NSString *lng;
-
-@property (strong, nonatomic) NSString *chklat;
-@property (strong, nonatomic) NSString *chklng;
-
 @end
