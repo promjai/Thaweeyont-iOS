@@ -138,7 +138,6 @@ BOOL refreshDataBranch;
     cell.thumbnails.contentMode = UIViewContentModeScaleAspectFill;
     
     cell.branchName.text = [[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"branchName"];
-    cell.telephone.text = [[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"branchTel"];
     
     return cell;
 }

@@ -12,6 +12,5 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *thumbnails;
 @property (strong, nonatomic) IBOutlet UILabel *branchName;
-@property (strong, nonatomic) IBOutlet UILabel *telephone;
 
 @end

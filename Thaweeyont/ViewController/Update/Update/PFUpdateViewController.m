@@ -130,11 +130,20 @@ NSTimer *timmer;
         
     } else {
         
-        UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-        [customButton addTarget:self action:@selector(notify) forControlEvents:UIControlEventTouchUpInside];
-        [customButton setImage:[UIImage imageNamed:@"ic_notification"] forState:UIControlStateNormal];
-        BBBadgeBarButtonItem *rightButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
-        rightButton.badgeValue = badge;
+        UIButton *toggleKeyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        toggleKeyboardButton.bounds = CGRectMake( 0, 0, 21, 21 );
+        [toggleKeyboardButton setTitle:badge forState:UIControlStateNormal];
+        [toggleKeyboardButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
+        
+        [toggleKeyboardButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+        toggleKeyboardButton.contentVerticalAlignment = UIControlContentHorizontalAlignmentCenter;
+        
+        [toggleKeyboardButton setBackgroundColor:[UIColor clearColor]];
+        [toggleKeyboardButton.layer setBorderColor:[[UIColor whiteColor] CGColor]];
+        [toggleKeyboardButton.layer setBorderWidth: 1.0];
+        [toggleKeyboardButton.layer setCornerRadius:10.0f];
+        [toggleKeyboardButton addTarget:self action:@selector(notify) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:toggleKeyboardButton];
         self.navItem.rightBarButtonItem = rightButton;
         
     }

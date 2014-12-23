@@ -97,6 +97,19 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+-(CLLocationCoordinate2D) getLocation{
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    [self.locationManager startUpdatingLocation];
+    CLLocation *location = [self.locationManager location];
+    CLLocationCoordinate2D coordinate = [location coordinate];
+    
+    return coordinate;
+}
+
 - (void)PFApi:(id)sender getContactBranchesResponse:(NSDictionary *)response {
     //NSLog(@"contactBranch %@",response);
     
@@ -120,10 +133,19 @@
         point.title = getname;
         
         [self.allmapView addAnnotation:point];
-        [self.allmapView setCenterCoordinate:location zoomLevel:6 animated:NO];
-        //
         
     }
+    
+    CLLocationCoordinate2D coordinate = [self getLocation];
+    NSString *latitude = [NSString stringWithFormat:@"%f", coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f", coordinate.longitude];
+    
+    CLLocationCoordinate2D mylocation;
+    mylocation.latitude = [latitude doubleValue];
+    mylocation.longitude = [longitude doubleValue];
+    
+    [self.allmapView setCenterCoordinate:mylocation zoomLevel:6 animated:NO];
+    
 }
 
 - (void)PFApi:(id)sender getContactBranchesErrorResponse:(NSString *)errorResponse {
