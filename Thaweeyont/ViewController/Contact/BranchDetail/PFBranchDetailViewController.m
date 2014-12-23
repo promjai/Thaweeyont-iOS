@@ -38,18 +38,12 @@
     if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.contactLabel.text = @"หมายเลขภายใน";
         self.directionLabel.text = @"Get Direction";
+        self.directionLabel1.text = @"Get Direction";
     } else {
         self.contactLabel.text = @"หมายเลขภายใน";
         self.directionLabel.text = @"นำทาง";
+        self.directionLabel1.text = @"นำทาง";
     }
-    
-    self.tableView.tableHeaderView = self.headerView;
-    
-    [self.directionBt.layer setMasksToBounds:YES];
-    [self.directionBt.layer setCornerRadius:5.0f];
-    
-    [self.addressView.layer setMasksToBounds:YES];
-    [self.addressView.layer setCornerRadius:5.0f];
     
     self.ArrImgs = [[NSMutableArray alloc] init];
     self.arrcontactimg = [[NSMutableArray alloc] init];
@@ -68,17 +62,51 @@
     self.pageScrollView.pageControlPos = PageControlPositionCenterBottom;
     [self.imgscrollview addSubview:self.pageScrollView];
     
-    self.telephoneLabel.text = [self.obj objectForKey:@"branchTel"];
-    self.faxLabel.text = [self.obj objectForKey:@"branchFax"];
-    self.emailLabel.text = [self.obj objectForKey:@"branchEmail"];
-    
     NSString *urlmap = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@",@"http://maps.googleapis.com/maps/api/staticmap?center=",[[self.obj objectForKey:@"location"] objectForKey:@"lat"],@",",[[self.obj objectForKey:@"location"] objectForKey:@"lng"],@"&zoom=16&size=560x240&sensor=false&markers=color:red%7Clabel:o%7C",[[self.obj objectForKey:@"location"] objectForKey:@"lat"],@",",[[self.obj objectForKey:@"location"] objectForKey:@"lng"]];
     
-    [DLImageLoader loadImageFromURL:urlmap
-                          completed:^(NSError *error, NSData *imgData) {
-                              self.mapImg.image = [UIImage imageWithData:imgData];
-                          }];
-    self.addressLabel.text = [self.obj objectForKey:@"branchAddress"];
+    if ([[self.obj objectForKey:@"tel_length"] intValue] == 0) {
+        self.tableView.tableHeaderView = self.headerView;
+        self.tableView.tableFooterView = self.footerView1;
+        
+        [self.directionBt1.layer setMasksToBounds:YES];
+        [self.directionBt1.layer setCornerRadius:5.0f];
+        
+        [self.addressView1.layer setMasksToBounds:YES];
+        [self.addressView1.layer setCornerRadius:5.0f];
+        
+        [DLImageLoader loadImageFromURL:urlmap
+                              completed:^(NSError *error, NSData *imgData) {
+                                  self.mapImg1.image = [UIImage imageWithData:imgData];
+                              }];
+    
+        self.telephoneLabel1.text = [self.obj objectForKey:@"branchTel"];
+        self.faxLabel1.text = [self.obj objectForKey:@"branchFax"];
+        self.emailLabel1.text = [self.obj objectForKey:@"branchEmail"];
+        
+        self.addressLabel1.text = [self.obj objectForKey:@"branchAddress"];
+        
+    } else {
+        self.tableView.tableHeaderView = self.headerView;
+        self.tableView.tableFooterView = self.footerView;
+        
+        [self.directionBt.layer setMasksToBounds:YES];
+        [self.directionBt.layer setCornerRadius:5.0f];
+        
+        [self.addressView.layer setMasksToBounds:YES];
+        [self.addressView.layer setCornerRadius:5.0f];
+        
+        [DLImageLoader loadImageFromURL:urlmap
+                              completed:^(NSError *error, NSData *imgData) {
+                                  self.mapImg.image = [UIImage imageWithData:imgData];
+                              }];
+        
+        self.telephoneLabel.text = [self.obj objectForKey:@"branchTel"];
+        self.faxLabel.text = [self.obj objectForKey:@"branchFax"];
+        self.emailLabel.text = [self.obj objectForKey:@"branchEmail"];
+        
+        self.addressLabel.text = [self.obj objectForKey:@"branchAddress"];
+        
+    }
     
 }
 
@@ -116,8 +144,17 @@
 
 - (IBAction)phoneTapped:(id)sender {
     
-    NSString *phone = [[NSString alloc] initWithFormat:@"telprompt://%@",self.telephoneLabel.text];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+    if ([[self.obj objectForKey:@"tel_length"] intValue] == 0) {
+    
+        NSString *phone = [[NSString alloc] initWithFormat:@"telprompt://%@",self.telephoneLabel1.text];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+        
+    } else {
+        
+        NSString *phone = [[NSString alloc] initWithFormat:@"telprompt://%@",self.telephoneLabel.text];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+    
+    }
     
 }
 
@@ -160,12 +197,19 @@
         // Email Content
         NSString *messageBody = nil;
         // To address
-        NSArray *toRecipents = [self.emailLabel.text componentsSeparatedByString: @","];
+        NSArray *toRecipents;
+        
+        if ([[self.obj objectForKey:@"tel_length"] intValue] == 0) {
+            // To address
+            toRecipents = [self.emailLabel1.text componentsSeparatedByString: @","];
+        } else {
+            toRecipents = [self.emailLabel.text componentsSeparatedByString: @","];
+        }
         
         [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:237.0f/255.0f green:28.0f/255.0f blue:36.0f/255.0f alpha:1.0f]];
         
         [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                               [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:1.0], NSForegroundColorAttributeName, nil]];
+                                                               [UIColor whiteColor], NSForegroundColorAttributeName, nil]];
         
         MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
         mc.mailComposeDelegate = self;

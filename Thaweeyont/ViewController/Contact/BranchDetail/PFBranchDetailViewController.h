@@ -35,6 +35,10 @@
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 
+//มีหมายเลขภายใน
+
+@property (strong, nonatomic) IBOutlet UIView *footerView;
+
 @property (strong, nonatomic) IBOutlet PagedImageScrollView *pageScrollView;
 
 @property (strong, nonatomic) IBOutlet UIView *imgscrollview;
@@ -65,5 +69,20 @@
 - (IBAction)mapTapped:(id)sender;
 
 - (IBAction)powerbyTapped:(id)sender;
+
+//ไม่มีหมายเลขภายใน
+
+@property (strong, nonatomic) IBOutlet UIView *footerView1;
+
+@property (strong, nonatomic) IBOutlet UILabel *telephoneLabel1;
+@property (strong, nonatomic) IBOutlet UILabel *faxLabel1;
+@property (strong, nonatomic) IBOutlet UILabel *emailLabel1;
+
+@property (strong, nonatomic) IBOutlet UIButton *directionBt1;
+@property (strong, nonatomic) IBOutlet UILabel *directionLabel1;
+
+@property (strong, nonatomic) IBOutlet UIView *addressView1;
+@property (strong, nonatomic) IBOutlet UIImageView *mapImg1;
+@property (strong, nonatomic) IBOutlet UILabel *addressLabel1;
 
 @end

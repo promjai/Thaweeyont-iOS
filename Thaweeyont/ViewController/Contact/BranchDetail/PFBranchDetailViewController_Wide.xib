@@ -7,17 +7,27 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PFBranchDetailViewController">
             <connections>
                 <outlet property="addressLabel" destination="c9u-k9-CxN" id="jNr-6a-4iw"/>
+                <outlet property="addressLabel1" destination="08Z-9t-cJG" id="keN-jm-05X"/>
                 <outlet property="addressView" destination="BDC-rT-kPb" id="PUr-yQ-IVq"/>
+                <outlet property="addressView1" destination="fhR-zc-9Gu" id="NSA-cM-yNd"/>
                 <outlet property="contactLabel" destination="yFP-ML-zjl" id="wYv-zn-vRf"/>
                 <outlet property="directionBt" destination="gop-Hs-kEv" id="H0w-xx-MXz"/>
+                <outlet property="directionBt1" destination="6cC-nG-ij3" id="RlR-HJ-0Dl"/>
                 <outlet property="directionLabel" destination="fdI-FY-hH4" id="DW7-HO-6G4"/>
+                <outlet property="directionLabel1" destination="exB-Vf-W5e" id="UHg-c8-Cer"/>
                 <outlet property="emailLabel" destination="xS4-sn-3gN" id="VWi-uj-6gY"/>
+                <outlet property="emailLabel1" destination="WTT-Lp-ioO" id="Msi-Zz-gSG"/>
                 <outlet property="faxLabel" destination="h42-DF-D8H" id="c3g-BD-Ck1"/>
-                <outlet property="headerView" destination="6Em-sI-c9b" id="OH4-K5-VAo"/>
-                <outlet property="imgscrollview" destination="u8d-6T-um8" id="z0h-xt-sqL"/>
+                <outlet property="faxLabel1" destination="WE9-Iu-cmU" id="NoK-3d-seH"/>
+                <outlet property="footerView" destination="6Em-sI-c9b" id="ySL-el-b23"/>
+                <outlet property="footerView1" destination="l92-bt-UIh" id="IN0-eu-w6F"/>
+                <outlet property="headerView" destination="MCi-AV-aVa" id="8MI-ZA-Goz"/>
+                <outlet property="imgscrollview" destination="HGH-Jl-7Kz" id="y7c-Lo-AaH"/>
                 <outlet property="mapImg" destination="dWd-dI-tW2" id="F1u-J2-Sa1"/>
+                <outlet property="mapImg1" destination="yRo-ut-N8d" id="ELu-iI-RxZ"/>
                 <outlet property="tableView" destination="5FP-Sa-khf" id="ZWt-Ln-X6z"/>
                 <outlet property="telephoneLabel" destination="094-ys-Djp" id="y39-gr-gKL"/>
+                <outlet property="telephoneLabel1" destination="VnO-xl-bCV" id="qJq-Yj-78G"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -35,16 +45,25 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <point key="canvasLocation" x="218" y="364"/>
         </view>
-        <view contentMode="scaleToFill" id="6Em-sI-c9b">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="664"/>
+        <view contentMode="scaleToFill" id="MCi-AV-aVa">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="u8d-6T-um8">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HGH-Jl-7Kz">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="789" y="-564"/>
+        </view>
+        <view contentMode="scaleToFill" id="6Em-sI-c9b">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="484"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XnZ-i6-3Eb">
-                    <rect key="frame" x="10" y="190" width="300" height="184"/>
+                    <rect key="frame" x="10" y="10" width="300" height="184"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHX-gM-vGW">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
@@ -119,7 +138,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gop-Hs-kEv">
-                    <rect key="frame" x="10" y="384" width="300" height="40"/>
+                    <rect key="frame" x="10" y="204" width="300" height="40"/>
                     <state key="normal" backgroundImage="chapter02.png">
                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -129,13 +148,13 @@
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdI-FY-hH4">
-                    <rect key="frame" x="20" y="393" width="280" height="21"/>
+                    <rect key="frame" x="20" y="213" width="280" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BDC-rT-kPb">
-                    <rect key="frame" x="10" y="434" width="300" height="182"/>
+                    <rect key="frame" x="10" y="254" width="300" height="182"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YVt-ZJ-lzI">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="182"/>
@@ -159,10 +178,10 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_powered_light.png" translatesAutoresizingMaskIntoConstraints="NO" id="xXe-Xd-DyU">
-                    <rect key="frame" x="104" y="632" width="112" height="12"/>
+                    <rect key="frame" x="104" y="452" width="112" height="12"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCk-4U-f0r">
-                    <rect key="frame" x="10" y="623" width="300" height="30"/>
+                    <rect key="frame" x="10" y="443" width="300" height="30"/>
                     <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -174,7 +193,125 @@
             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="592" y="327.5"/>
+            <point key="canvasLocation" x="958" y="417"/>
+        </view>
+        <view contentMode="scaleToFill" id="l92-bt-UIh">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="438"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SUZ-ab-UVD">
+                    <rect key="frame" x="10" y="10" width="300" height="138"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chapter02.png" translatesAutoresizingMaskIntoConstraints="NO" id="pMU-G6-P7T">
+                            <rect key="frame" x="0.0" y="46" width="300" height="45"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_fax.png" translatesAutoresizingMaskIntoConstraints="NO" id="Wmm-Uc-SC7">
+                            <rect key="frame" x="11" y="58" width="22" height="22"/>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WE9-Iu-cmU">
+                            <rect key="frame" x="60" y="58" width="230" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwR-Y6-P51">
+                            <rect key="frame" x="0.0" y="92" width="300" height="45"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="chapter03.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="emailTapped:" destination="-1" eventType="touchUpInside" id="VkF-2I-b1E"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_email.png" translatesAutoresizingMaskIntoConstraints="NO" id="kEO-uq-O1c">
+                            <rect key="frame" x="11" y="105" width="22" height="22"/>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTT-Lp-ioO">
+                            <rect key="frame" x="60" y="104" width="230" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fw7-nq-aE9">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="45"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="chapter01.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="phoneTapped:" destination="-1" eventType="touchUpInside" id="kVX-RJ-qHt"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VnO-xl-bCV">
+                            <rect key="frame" x="60" y="12" width="230" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_phone.png" translatesAutoresizingMaskIntoConstraints="NO" id="Bvq-bs-r58">
+                            <rect key="frame" x="11" y="12" width="22" height="22"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cC-nG-ij3">
+                    <rect key="frame" x="10" y="158" width="300" height="40"/>
+                    <state key="normal" backgroundImage="chapter02.png">
+                        <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="getDirectionTapped:" destination="-1" eventType="touchUpInside" id="44O-JK-Vwn"/>
+                    </connections>
+                </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exB-Vf-W5e">
+                    <rect key="frame" x="20" y="167" width="280" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhR-zc-9Gu">
+                    <rect key="frame" x="10" y="208" width="300" height="182"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fQV-QY-t6M">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="182"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <connections>
+                                <action selector="mapTapped:" destination="-1" eventType="touchUpInside" id="4BM-H4-6nQ"/>
+                            </connections>
+                        </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yRo-ut-N8d">
+                            <rect key="frame" x="10" y="10" width="280" height="120"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </imageView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="08Z-9t-cJG">
+                            <rect key="frame" x="10" y="135" width="280" height="42"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ic_powered_light.png" translatesAutoresizingMaskIntoConstraints="NO" id="hMN-dz-0wz">
+                    <rect key="frame" x="104" y="406" width="112" height="12"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVj-NS-aTE">
+                    <rect key="frame" x="10" y="397" width="300" height="30"/>
+                    <state key="normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="powerbyTapped:" destination="-1" eventType="touchUpInside" id="r4l-7k-ADh"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="592" y="440"/>
         </view>
     </objects>
     <resources>

@@ -164,7 +164,7 @@ BOOL refreshDataBranch;
 
 - (void)PFBranchDetailViewControllerBack {
     
-    [self.Api getContactBranches];
+    [self.tableView reloadData];
     
     if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navigationItem.title = @"Our Branches";
