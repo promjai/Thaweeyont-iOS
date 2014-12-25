@@ -46,13 +46,15 @@ BOOL refreshDataNoti;
     }
     
     [self.Api getNotification:@"15" link:@"NO"];
-    [self.Api clearBadge];
     
     self.arrObj = [[NSMutableArray alloc] init];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
+    
+    // During startup (-viewDidLoad or in storyboard) do:
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
 
 }
 
@@ -76,12 +78,15 @@ BOOL refreshDataNoti;
 - (void)PFApi:(id)sender getNotificationResponse:(NSDictionary *)response {
     //NSLog(@"%@",response);
     
+    [self.Api clearBadge];
+    
     [self.waitView removeFromSuperview];
     [self.refreshControl endRefreshing];
     
     self.checkinternet = @"connect";
     
     if (!refreshDataNoti) {
+        [self.arrObj removeAllObjects];
         for (int i=0; i<[[response objectForKey:@"data"] count]; ++i) {
             [self.arrObj addObject:[[response objectForKey:@"data"] objectAtIndex:i]];
         }
@@ -114,6 +119,7 @@ BOOL refreshDataNoti;
     self.checkinternet = @"error";
     
     if (!refreshDataNoti) {
+        [self.arrObj removeAllObjects];
         for (int i=0; i<[[[self.notifyOffline objectForKey:@"notificationArray"] objectForKey:@"data"] count]; ++i) {
             [self.arrObj addObject:[[[self.notifyOffline objectForKey:@"notificationArray"] objectForKey:@"data"] objectAtIndex:i]];
         }
@@ -298,6 +304,29 @@ BOOL refreshDataNoti;
     
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        
+        [self.Api deleteNotification:[[self.arrObj objectAtIndex:indexPath.row] objectForKey:@"id"]];
+        
+    }
+}
+
+- (void)PFApi:(id)sender deleteNotificationResponse:(NSDictionary *)response {
+    [self.Api getNotification:@"15" link:@"NO"];
+}
+
+- (void)PFApi:(id)sender deleteNotificationErrorResponse:(NSString *)errorResponse {
+    NSLog(@"%@",errorResponse);
+}
+
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
 
@@ -347,7 +376,7 @@ BOOL refreshDataNoti;
 }
 
 - (void)PFMessageViewControllerBack {
-    [self.tableView reloadData];
+    [self viewDidLoad];
     if (![[self.Api getLanguage] isEqualToString:@"TH"]) {
         self.navigationItem.title = @"Notification";
     } else {

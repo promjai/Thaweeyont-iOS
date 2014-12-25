@@ -46,6 +46,9 @@
 - (void)PFApi:(id)sender getNotificationResponse:(NSDictionary *)response;
 - (void)PFApi:(id)sender getNotificationErrorResponse:(NSString *)errorResponse;
 
+- (void)PFApi:(id)sender deleteNotificationResponse:(NSDictionary *)response;
+- (void)PFApi:(id)sender deleteNotificationErrorResponse:(NSString *)errorResponse;
+
 - (void)PFApi:(id)sender checkBadgeResponse:(NSDictionary *)response;
 - (void)PFApi:(id)sender checkBadgeErrorResponse:(NSString *)errorResponse;
 
@@ -150,6 +153,7 @@
 - (void)getMessageById:(NSString *)message_id;
 
 - (void)getNotification:(NSString *)limit link:(NSString *)link;
+- (void)deleteNotification:(NSString *)notify_id;
 - (void)checkBadge;
 - (void)clearBadge;
 
